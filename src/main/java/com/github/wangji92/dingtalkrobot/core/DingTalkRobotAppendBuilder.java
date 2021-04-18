@@ -43,6 +43,11 @@ public class DingTalkRobotAppendBuilder {
         DingTalkRobotAppendProperties.DingTalkRobot robot = dingTalkRobotAppendProperties.getRobotConfig();
         dingTalkRobotAppend.setWebhook(robot.getWebhook());
         dingTalkRobotAppend.setSignSecret(robot.getSignSecret());
+        String title = robot.getRobotTitle();
+        if (!StringUtils.hasText(title)) {
+            title = "钉钉日志告警通知";
+        }
+        dingTalkRobotAppend.setRobotTitle(title);
         dingTalkRobotAppend.setContext(loggerContext);
         DingTalkRobotLayout layout = this.buildDingTalkRobotLayout(loggerContext, robot);
         layout.start();
@@ -87,12 +92,6 @@ public class DingTalkRobotAppendBuilder {
             app = applicationContext.getEnvironment().getProperty("spring.application.name");
         }
         layout.setApp(app);
-
-        String title = robot.getRobotTitle();
-        if (!StringUtils.hasText(title)) {
-            title = "钉钉日志告警通知";
-        }
-        layout.setPresentationHeader(title);
 
         // 快捷链接 方便直接点击进入服务器
         DingTalkRobotAppendProperties.QuickLink quickLink = dingTalkRobotAppendProperties.getQuickLinkConfig();

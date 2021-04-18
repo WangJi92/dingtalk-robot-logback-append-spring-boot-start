@@ -1,10 +1,15 @@
 package com.github.wangji92.dingtalkrobot.logback.append;
 
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.Layout;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
+import ch.qos.logback.core.encoder.Encoder;
+import ch.qos.logback.core.encoder.LayoutWrappingEncoder;
 import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.github.wangji92.dingtalkrobot.core.DingTalkRobotSender;
-import com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout;
+
+import java.nio.charset.StandardCharsets;
 
 
 /**
@@ -23,10 +28,18 @@ public class DingTalkRobotAppend extends UnsynchronizedAppenderBase<ILoggingEven
      */
     private String signSecret;
     /**
-     * 格式处理
+     * 通知标题
      */
-    private DingTalkRobotLayout layout;
+    private String robotTitle;
 
+    /**
+     * 定义 layout 处理器 Encode
+     *
+     * @see PatternLayoutEncoder
+     * @see LayoutWrappingEncoder
+     * {@literal http://logback.qos.ch/manual/encoders.html}
+     */
+    private Encoder<ILoggingEvent> encoder;
     /**
      * 发送钉钉机器人消息
      */
@@ -37,24 +50,20 @@ public class DingTalkRobotAppend extends UnsynchronizedAppenderBase<ILoggingEven
         super.setName("dRobot");
     }
 
-    public DingTalkRobotLayout getLayout() {
-        return layout;
-    }
-
-    public void setLayout(DingTalkRobotLayout layout) {
-        this.layout = layout;
-    }
-
     @Override
     protected void append(ILoggingEvent eventObject) {
-        String logMarkdownText = layout.doLayout(eventObject);
+        if (encoder == null) {
+            addWarn("encoder is null");
+            return;
+        }
+        byte[] encodeBytes = encoder.encode(eventObject);
         if (dingTalkRobotSender != null) {
             OapiRobotSendRequest oapiRobotSendRequest = new OapiRobotSendRequest();
             oapiRobotSendRequest.setMsgtype("markdown");
 
             OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
-            markdown.setText(logMarkdownText);
-            markdown.setTitle(layout.getPresentationHeader());
+            markdown.setText(new String(encodeBytes, StandardCharsets.UTF_8));
+            markdown.setTitle(robotTitle);
 
             oapiRobotSendRequest.setMarkdown(markdown);
             dingTalkRobotSender.sendToRobot(oapiRobotSendRequest);
@@ -83,5 +92,35 @@ public class DingTalkRobotAppend extends UnsynchronizedAppenderBase<ILoggingEven
 
     public void setSignSecret(String signSecret) {
         this.signSecret = signSecret;
+    }
+
+
+    /**
+     * 设置 layout
+     *
+     * @param layout
+     */
+    public void setLayout(Layout<ILoggingEvent> layout) {
+        LayoutWrappingEncoder<ILoggingEvent> customLayoutEncoder = new LayoutWrappingEncoder<ILoggingEvent>();
+        customLayoutEncoder.setLayout(layout);
+        customLayoutEncoder.setContext(context);
+        this.encoder = customLayoutEncoder;
+
+    }
+
+    public Encoder<ILoggingEvent> getEncoder() {
+        return encoder;
+    }
+
+    public void setEncoder(Encoder<ILoggingEvent> encoder) {
+        this.encoder = encoder;
+    }
+
+    public String getRobotTitle() {
+        return robotTitle;
+    }
+
+    public void setRobotTitle(String robotTitle) {
+        this.robotTitle = robotTitle;
     }
 }
