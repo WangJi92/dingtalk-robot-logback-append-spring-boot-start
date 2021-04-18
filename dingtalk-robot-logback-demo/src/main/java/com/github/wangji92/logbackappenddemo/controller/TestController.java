@@ -28,7 +28,7 @@ public class TestController {
         try {
             doException();
         } catch (Exception e) {
-            log.error("exception ", e);
+            log.error("exception {}",message, e);
         }
 
         MDC.put("testMdc", "testMdc");
