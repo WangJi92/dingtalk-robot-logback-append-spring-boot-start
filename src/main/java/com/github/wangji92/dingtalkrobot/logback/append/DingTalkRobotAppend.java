@@ -27,7 +27,9 @@ public class DingTalkRobotAppend extends UnsynchronizedAppenderBase<ILoggingEven
      */
     private DingTalkRobotLayout layout;
 
-
+    /**
+     * 发送钉钉机器人消息
+     */
     private DingTalkRobotSender dingTalkRobotSender;
 
     public DingTalkRobotAppend() {
