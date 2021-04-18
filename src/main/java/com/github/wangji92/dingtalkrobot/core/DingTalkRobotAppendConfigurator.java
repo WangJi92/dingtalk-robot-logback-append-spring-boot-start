@@ -7,6 +7,7 @@ import ch.qos.logback.classic.boolex.JaninoEventEvaluator;
 import ch.qos.logback.classic.filter.ThresholdFilter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.filter.EvaluatorFilter;
+import ch.qos.logback.core.spi.FilterReply;
 import com.github.wangji92.dingtalkrobot.DingTalkRobotAlarmProperties;
 import com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend;
 import com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout;
@@ -96,10 +97,15 @@ public class DingTalkRobotAppendConfigurator implements InitializingBean {
             EvaluatorFilter<ILoggingEvent> evaluatorFilter = new EvaluatorFilter<ILoggingEvent>();
             JaninoEventEvaluator eventEvaluator = new JaninoEventEvaluator();
             // 需要存在关键字才打印
-            eventEvaluator.setExpression("formattedMessage.contains(" + logConfig.getLogKeyWord() + ")");
+            eventEvaluator.setExpression("return formattedMessage.contains(\"" + logConfig.getLogKeyWord() + "\");");
             evaluatorFilter.setEvaluator(eventEvaluator);
+            eventEvaluator.setContext(loggerContext);
+
+            evaluatorFilter.setOnMatch(FilterReply.ACCEPT);
+            evaluatorFilter.setOnMismatch(FilterReply.DENY);
+            eventEvaluator.start();
             evaluatorFilter.start();
-            asyncAppender.addFilter(thresholdFilter);
+            asyncAppender.addFilter(evaluatorFilter);
         }
         dingTalkRobotAppend.start();
 
