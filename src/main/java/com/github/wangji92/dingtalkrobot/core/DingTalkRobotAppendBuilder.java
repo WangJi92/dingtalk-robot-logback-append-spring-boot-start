@@ -1,7 +1,7 @@
 package com.github.wangji92.dingtalkrobot.core;
 
 import ch.qos.logback.classic.LoggerContext;
-import com.github.wangji92.dingtalkrobot.DingTalkRobotAlarmProperties;
+import com.github.wangji92.dingtalkrobot.DingTalkRobotAppendProperties;
 import com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend;
 import com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout;
 import lombok.extern.slf4j.Slf4j;
@@ -21,14 +21,14 @@ public class DingTalkRobotAppendBuilder {
     private static final String HTTP = "http";
 
 
-    private DingTalkRobotAlarmProperties dingTalkRobotAlarmProperties;
+    private DingTalkRobotAppendProperties dingTalkRobotAppendProperties;
 
     private ApplicationContext applicationContext;
 
     private LoggerContext loggerContext;
 
-    public DingTalkRobotAppendBuilder(DingTalkRobotAlarmProperties dingTalkRobotAlarmProperties, ApplicationContext applicationContext) {
-        this.dingTalkRobotAlarmProperties = dingTalkRobotAlarmProperties;
+    public DingTalkRobotAppendBuilder(DingTalkRobotAppendProperties dingTalkRobotAppendProperties, ApplicationContext applicationContext) {
+        this.dingTalkRobotAppendProperties = dingTalkRobotAppendProperties;
         this.applicationContext = applicationContext;
     }
 
@@ -40,7 +40,7 @@ public class DingTalkRobotAppendBuilder {
     public DingTalkRobotAppend buildDingTalkRobotAppend() {
         this.checkConfig();
         DingTalkRobotAppend dingTalkRobotAppend = new DingTalkRobotAppend();
-        DingTalkRobotAlarmProperties.DingTalkRobot robot = dingTalkRobotAlarmProperties.getRobotConfig();
+        DingTalkRobotAppendProperties.DingTalkRobot robot = dingTalkRobotAppendProperties.getRobotConfig();
         dingTalkRobotAppend.setWebhook(robot.getWebhook());
         dingTalkRobotAppend.setSignSecret(robot.getSignSecret());
         dingTalkRobotAppend.setContext(loggerContext);
@@ -57,10 +57,10 @@ public class DingTalkRobotAppendBuilder {
      */
     private void checkConfig() {
         Assert.notNull(loggerContext, "logger context  must not be null");
-        Assert.notNull(dingTalkRobotAlarmProperties, "dingtalk dingTalkRobotAlarmProperties config  must not be null");
+        Assert.notNull(dingTalkRobotAppendProperties, "dingtalk dingTalkRobotAppendProperties config  must not be null");
 
-        Assert.notNull(dingTalkRobotAlarmProperties.getRobotConfig(), "dingtalk robot config  must not be null");
-        Assert.hasText(dingTalkRobotAlarmProperties.getRobotConfig().getWebhook(), "dingtalk robot config  must not be null");
+        Assert.notNull(dingTalkRobotAppendProperties.getRobotConfig(), "dingtalk robot config  must not be null");
+        Assert.hasText(dingTalkRobotAppendProperties.getRobotConfig().getWebhook(), "dingtalk robot config  must not be null");
     }
 
     /**
@@ -70,12 +70,12 @@ public class DingTalkRobotAppendBuilder {
      * @param robot
      * @return
      */
-    private DingTalkRobotLayout buildDingTalkRobotLayout(LoggerContext loggerContext, DingTalkRobotAlarmProperties.DingTalkRobot robot) {
+    private DingTalkRobotLayout buildDingTalkRobotLayout(LoggerContext loggerContext, DingTalkRobotAppendProperties.DingTalkRobot robot) {
         DingTalkRobotLayout layout = new DingTalkRobotLayout();
         layout.setContext(loggerContext);
-        DingTalkRobotAlarmProperties.ApplicationConfig applicationConfig = dingTalkRobotAlarmProperties.getApplicationConfig();
+        DingTalkRobotAppendProperties.ApplicationConfig applicationConfig = dingTalkRobotAppendProperties.getApplicationConfig();
         if (applicationConfig == null) {
-            applicationConfig = new DingTalkRobotAlarmProperties.ApplicationConfig();
+            applicationConfig = new DingTalkRobotAppendProperties.ApplicationConfig();
         }
         String env = applicationConfig.getEnv();
         if (!StringUtils.hasText(env)) {
@@ -95,7 +95,7 @@ public class DingTalkRobotAppendBuilder {
         layout.setPresentationHeader(title);
 
         // 快捷链接 方便直接点击进入服务器
-        DingTalkRobotAlarmProperties.QuickLink quickLink = dingTalkRobotAlarmProperties.getQuickLinkConfig();
+        DingTalkRobotAppendProperties.QuickLink quickLink = dingTalkRobotAppendProperties.getQuickLinkConfig();
         if (quickLink != null && StringUtils.hasText(quickLink.getClickDescription())) {
             layout.setClickDescription(quickLink.getClickDescription());
             if (StringUtils.hasText(quickLink.getClickUrl()) && quickLink.getClickUrl().contains(HTTP)) {
@@ -105,12 +105,12 @@ public class DingTalkRobotAppendBuilder {
         return layout;
     }
 
-    public DingTalkRobotAlarmProperties getDingTalkRobotAlarmProperties() {
-        return dingTalkRobotAlarmProperties;
+    public DingTalkRobotAppendProperties getdingTalkRobotAppendProperties() {
+        return dingTalkRobotAppendProperties;
     }
 
-    public void setDingTalkRobotAlarmProperties(DingTalkRobotAlarmProperties dingTalkRobotAlarmProperties) {
-        this.dingTalkRobotAlarmProperties = dingTalkRobotAlarmProperties;
+    public void setdingTalkRobotAppendProperties(DingTalkRobotAppendProperties dingTalkRobotAppendProperties) {
+        this.dingTalkRobotAppendProperties = dingTalkRobotAppendProperties;
     }
 
     public ApplicationContext getApplicationContext() {

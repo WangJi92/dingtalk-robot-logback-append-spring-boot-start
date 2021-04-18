@@ -8,7 +8,7 @@ import ch.qos.logback.classic.filter.ThresholdFilter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.filter.EvaluatorFilter;
 import ch.qos.logback.core.spi.FilterReply;
-import com.github.wangji92.dingtalkrobot.DingTalkRobotAlarmProperties;
+import com.github.wangji92.dingtalkrobot.DingTalkRobotAppendProperties;
 import com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.ILoggerFactory;
@@ -29,7 +29,7 @@ import static ch.qos.logback.core.AsyncAppenderBase.DEFAULT_MAX_FLUSH_TIME;
  * @date 18-04-2021
  */
 @Slf4j
-public class DingTalkRobotLogbackAlarmBootstrap {
+public class DingTalkRobotLogbackAppendBootstrap {
 
     /**
      * logback loggerContext
@@ -37,7 +37,7 @@ public class DingTalkRobotLogbackAlarmBootstrap {
     private LoggerContext loggerContext = null;
 
     @Autowired
-    private DingTalkRobotAlarmProperties dingTalkRobotAlarmProperties;
+    private DingTalkRobotAppendProperties dingTalkRobotAppendProperties;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -75,7 +75,7 @@ public class DingTalkRobotLogbackAlarmBootstrap {
      */
     @Bean(destroyMethod = "stop")
     public DingTalkRobotAppend buildDingTalkRobotAppend() {
-        DingTalkRobotAppendBuilder dingTalkRobotAppendBuilder = new DingTalkRobotAppendBuilder(dingTalkRobotAlarmProperties, applicationContext);
+        DingTalkRobotAppendBuilder dingTalkRobotAppendBuilder = new DingTalkRobotAppendBuilder(dingTalkRobotAppendProperties, applicationContext);
         dingTalkRobotAppendBuilder.setLoggerContext(loggerContext);
         return dingTalkRobotAppendBuilder.buildDingTalkRobotAppend();
     }
@@ -89,7 +89,7 @@ public class DingTalkRobotLogbackAlarmBootstrap {
     public AsyncAppender buildAsyncAppender() {
         AsyncAppender asyncAppender = new AsyncAppender();
 
-        DingTalkRobotAlarmProperties.LogConfig logConfig = dingTalkRobotAlarmProperties.getLogConfig();
+        DingTalkRobotAppendProperties.LogConfig logConfig = dingTalkRobotAppendProperties.getLogConfig();
 
         asyncAppender.setContext(loggerContext);
         // http://logback.qos.ch/manual/appenders.html#AsyncAppender
@@ -130,7 +130,7 @@ public class DingTalkRobotLogbackAlarmBootstrap {
      * @param asyncAppender
      */
     private void addLoggerNameDingTalkRobotAppender(AsyncAppender asyncAppender) {
-        DingTalkRobotAlarmProperties.LogConfig logConfig = dingTalkRobotAlarmProperties.getLogConfig();
+        DingTalkRobotAppendProperties.LogConfig logConfig = dingTalkRobotAppendProperties.getLogConfig();
         for (String loggerName : logConfig.getAppendLoggerNames()) {
             Logger logger = loggerContext.getLogger(loggerName);
             if (logger == null) {
@@ -145,21 +145,21 @@ public class DingTalkRobotLogbackAlarmBootstrap {
      * 配置检查
      */
     private void configCheck() {
-        Assert.notNull(dingTalkRobotAlarmProperties.getLogConfig(),
+        Assert.notNull(dingTalkRobotAppendProperties.getLogConfig(),
                 "dingtalk robot log config  must not be null");
-        Assert.notNull(dingTalkRobotAlarmProperties.getLogConfig().getLogLevel(),
+        Assert.notNull(dingTalkRobotAppendProperties.getLogConfig().getLogLevel(),
                 "dingtalk robot log config log level must not be null");
-        Assert.notEmpty(dingTalkRobotAlarmProperties.getLogConfig().getAppendLoggerNames(),
+        Assert.notEmpty(dingTalkRobotAppendProperties.getLogConfig().getAppendLoggerNames(),
                 "dingtalk robot not config logger name[eg: root,org.springframework.boot]");
 
-        Integer asyncAppenderQueueSize = dingTalkRobotAlarmProperties.getLogConfig().getAsyncAppenderQueueSize();
+        Integer asyncAppenderQueueSize = dingTalkRobotAppendProperties.getLogConfig().getAsyncAppenderQueueSize();
         Assert.isTrue(asyncAppenderQueueSize != null && asyncAppenderQueueSize > 0,
                 "dingtalk robot log config asyncAppender QueueSize must not be null and Greater than 0");
 
-        Assert.isTrue(dingTalkRobotAlarmProperties.getLogConfig().getAsyncAppenderNeverBlock() != null,
+        Assert.isTrue(dingTalkRobotAppendProperties.getLogConfig().getAsyncAppenderNeverBlock() != null,
                 "dingtalk robot log config asyncAppender neverBlock must not be null");
 
-        Assert.isTrue(dingTalkRobotAlarmProperties.getLogConfig().getAsyncAppenderIncludeCallerData() != null,
+        Assert.isTrue(dingTalkRobotAppendProperties.getLogConfig().getAsyncAppenderIncludeCallerData() != null,
                 "dingtalk robot log config asyncAppender includeCallerData must not be null");
     }
 
@@ -180,7 +180,7 @@ public class DingTalkRobotLogbackAlarmBootstrap {
      * @return
      */
     private EvaluatorFilter<ILoggingEvent> buildJaninoEvaluatorFilter() {
-        DingTalkRobotAlarmProperties.LogConfig logConfig = dingTalkRobotAlarmProperties.getLogConfig();
+        DingTalkRobotAppendProperties.LogConfig logConfig = dingTalkRobotAppendProperties.getLogConfig();
         if (!CollectionUtils.isEmpty(logConfig.getLogKeyWords())) {
             StringBuffer buffer = new StringBuffer("return ");
             for (int index = 0; index < logConfig.getLogKeyWords().size(); index++) {
@@ -230,7 +230,7 @@ public class DingTalkRobotLogbackAlarmBootstrap {
      * @return
      */
     private ThresholdFilter buildThresholdFilter() {
-        DingTalkRobotAlarmProperties.LogConfig logConfig = dingTalkRobotAlarmProperties.getLogConfig();
+        DingTalkRobotAppendProperties.LogConfig logConfig = dingTalkRobotAppendProperties.getLogConfig();
         ThresholdFilter thresholdFilter = new ThresholdFilter();
         thresholdFilter.setLevel(logConfig.getLogLevel().name());
         thresholdFilter.start();
