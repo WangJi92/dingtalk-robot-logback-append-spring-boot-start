@@ -98,14 +98,10 @@ public class DingTalkRobotAlarmProperties {
          */
         private String clickDescription = "点击查看详情";
         /**
-         * text 后面追加ip eg https://kaifa.baidu.com/searchPage?wd=ip
+         * 支持变量 ip 或者 app (应用名称)
+         * https://kaifa.baidu.com/searchPage?wd={ip}
          */
-        private String urlAppendIp;
-
-        /**
-         * text 后面追加 应用名称 eg https://kaifa.baidu.com/searchPage?wd=applicationName
-         */
-        private String urlAppendApplicationName;
+        private String clickUrl;
     }
 
 

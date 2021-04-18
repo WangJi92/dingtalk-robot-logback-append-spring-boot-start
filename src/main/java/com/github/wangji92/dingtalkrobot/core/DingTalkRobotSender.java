@@ -42,7 +42,7 @@ public class DingTalkRobotSender {
     public DingTalkRobotSender(String webhook, String signSecret) {
         this.webhook = webhook;
         this.signSecret = signSecret;
-        rateLimiter = RateLimiter.create(1 / 3.0);
+        rateLimiter = RateLimiter.create(1 / 3.5);
     }
 
     /**

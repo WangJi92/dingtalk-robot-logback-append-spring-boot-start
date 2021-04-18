@@ -104,10 +104,8 @@ public class DingTalkRobotAppendConfigurator implements InitializingBean {
         DingTalkRobotAlarmProperties.QuickLink quickLink = dingTalkRobotAlarmProperties.getQuickLinkConfig();
         if (quickLink != null && StringUtils.hasText(quickLink.getClickDescription())) {
             layout.setClickDescription(quickLink.getClickDescription());
-            if (StringUtils.hasText(quickLink.getUrlAppendIp()) && quickLink.getUrlAppendIp().contains(HTTP)) {
-                layout.setUrlAppendIp(quickLink.getUrlAppendIp());
-            } else if (StringUtils.hasText(quickLink.getUrlAppendApplicationName()) && quickLink.getUrlAppendApplicationName().contains(HTTP)) {
-                layout.setUrlAppendApplicationName(quickLink.getUrlAppendApplicationName());
+            if (StringUtils.hasText(quickLink.getClickUrl()) && quickLink.getClickUrl().contains(HTTP)) {
+                layout.setClickUrl(quickLink.getClickUrl());
             }
         }
 

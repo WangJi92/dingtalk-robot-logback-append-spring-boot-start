@@ -41,12 +41,7 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
     /**
      * 快捷链接 后面追加ip
      */
-    private String urlAppendIp;
-
-    /**
-     * 快捷链接 后面追加 应用名称
-     */
-    private String urlAppendApplicationName;
+    private String clickUrl;
 
     @Override
     public void start() {
@@ -108,12 +103,16 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
         }
 
         //增加快捷链接
-        if (StringUtils.hasText(clickDescription)) {
-            if (StringUtils.hasText(urlAppendIp)) {
-                this.markdownTextAppendUrl(sb, clickDescription, urlAppendIp + ip, urlAppendIp + ip);
-            } else if (StringUtils.hasText(urlAppendApplicationName)) {
-                this.markdownTextAppendUrl(sb, clickDescription, urlAppendApplicationName + app, urlAppendApplicationName + app);
+        if (StringUtils.hasText(clickDescription) && StringUtils.hasText(clickUrl)) {
+            String clickUrlDetail = clickUrl;
+            if (clickUrlDetail.contains("{ip}")) {
+                clickUrlDetail = clickUrl.replaceAll("\\{ip}", ip);
+
             }
+            if (clickUrlDetail.contains("{app}")) {
+                clickUrlDetail = clickUrl.replaceAll("\\{app}", app);
+            }
+            this.markdownTextAppendUrl(sb, clickDescription, clickUrlDetail, clickUrlDetail);
         }
         return sb.toString();
     }
@@ -181,19 +180,11 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
         this.clickDescription = clickDescription;
     }
 
-    public String getUrlAppendIp() {
-        return urlAppendIp;
+    public String getClickUrl() {
+        return clickUrl;
     }
 
-    public void setUrlAppendIp(String urlAppendIp) {
-        this.urlAppendIp = urlAppendIp;
-    }
-
-    public String getUrlAppendApplicationName() {
-        return urlAppendApplicationName;
-    }
-
-    public void setUrlAppendApplicationName(String urlAppendApplicationName) {
-        this.urlAppendApplicationName = urlAppendApplicationName;
+    public void setClickUrl(String clickUrl) {
+        this.clickUrl = clickUrl;
     }
 }
