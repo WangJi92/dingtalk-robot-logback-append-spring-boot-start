@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnClass(name = "ch.qos.logback.classic.LoggerContext")
-@ConditionalOnProperty(prefix = "spring.dingtalk.append", value = "enable", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "spring.dingtalk.logback.append", value = "enable", havingValue = "true", matchIfMissing = true)
 @ComponentScan(value = "com.github.wangji92.dingtalkrobot")
 @Slf4j
 public class DingTalkRobotAppendAutoConfiguration {
