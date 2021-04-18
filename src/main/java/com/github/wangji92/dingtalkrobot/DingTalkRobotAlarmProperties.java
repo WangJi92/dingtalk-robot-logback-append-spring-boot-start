@@ -2,10 +2,13 @@ package com.github.wangji92.dingtalkrobot;
 
 import ch.qos.logback.core.AsyncAppenderBase;
 import com.github.wangji92.dingtalkrobot.core.DingTalkRobotLogbackAlarmBootstrap;
+import com.google.common.collect.Lists;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 /**
  * 钉钉告警配置
@@ -61,14 +64,22 @@ public class DingTalkRobotAlarmProperties {
          */
         private LogLevel logLevel = LogLevel.ERROR;
         /**
-         * 消息中有关键词才钉钉通知
+         * 消息中有关键词才钉钉通知 逗号分割
+         * {@link DingTalkRobotLogbackAlarmBootstrap#buildJaninoEvaluatorFilter()}
+         * 这里使用的表达式 kewWordExpression : return formattedMessage.contains("keyword1") || formattedMessage.contains("keyword2");
          */
-        private String logKeyWord = "";
+        private List<String> logKeyWords;
 
         /**
-         * 添加到哪些 logger name  逗号分割
+         * 消息中过滤 自己定义表达式 和 logKeyWords 冲突 {@literal http://logback.qos.ch/manual/filters.html#EvaluatorFilter}
+         * return  formattedMessage.contains("keyword1") ||  formattedMessage.contains("keyword12");
          */
-        private String appendLoggerNames = "root";
+        private String kewWordExpression = "";
+
+        /**
+         * 添加到哪些 logger name
+         */
+        private List<String> appendLoggerNames = Lists.newArrayList("root");
 
         /**
          * blockingQueue长度决定了队列能放多少信息，在默认的配置下，如果blockingQueue放满了，后续想要输出日志的线程会被阻塞，

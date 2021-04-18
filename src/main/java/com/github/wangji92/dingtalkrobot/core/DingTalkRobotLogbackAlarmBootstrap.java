@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -72,7 +73,7 @@ public class DingTalkRobotLogbackAlarmBootstrap {
      *
      * @return
      */
-    @Bean
+    @Bean(destroyMethod = "stop")
     public DingTalkRobotAppend buildDingTalkRobotAppend() {
         DingTalkRobotAppendBuilder dingTalkRobotAppendBuilder = new DingTalkRobotAppendBuilder(dingTalkRobotAlarmProperties, applicationContext);
         dingTalkRobotAppendBuilder.setLoggerContext(loggerContext);
@@ -84,7 +85,7 @@ public class DingTalkRobotLogbackAlarmBootstrap {
      *
      * @return
      */
-    @Bean
+    @Bean(destroyMethod = "stop")
     public AsyncAppender buildAsyncAppender() {
         AsyncAppender asyncAppender = new AsyncAppender();
 
@@ -130,8 +131,7 @@ public class DingTalkRobotLogbackAlarmBootstrap {
      */
     private void addLoggerNameDingTalkRobotAppender(AsyncAppender asyncAppender) {
         DingTalkRobotAlarmProperties.LogConfig logConfig = dingTalkRobotAlarmProperties.getLogConfig();
-        String appendLoggerNames = logConfig.getAppendLoggerNames();
-        for (String loggerName : appendLoggerNames.split(",")) {
+        for (String loggerName : logConfig.getAppendLoggerNames()) {
             Logger logger = loggerContext.getLogger(loggerName);
             if (logger == null) {
                 log.warn("dingtalk alarm logger name ={} not found", loggerName);
@@ -149,7 +149,7 @@ public class DingTalkRobotLogbackAlarmBootstrap {
                 "dingtalk robot log config  must not be null");
         Assert.notNull(dingTalkRobotAlarmProperties.getLogConfig().getLogLevel(),
                 "dingtalk robot log config log level must not be null");
-        Assert.hasText(dingTalkRobotAlarmProperties.getLogConfig().getAppendLoggerNames(),
+        Assert.notEmpty(dingTalkRobotAlarmProperties.getLogConfig().getAppendLoggerNames(),
                 "dingtalk robot not config logger name[eg: root,org.springframework.boot]");
 
         Integer asyncAppenderQueueSize = dingTalkRobotAlarmProperties.getLogConfig().getAsyncAppenderQueueSize();
@@ -181,23 +181,47 @@ public class DingTalkRobotLogbackAlarmBootstrap {
      */
     private EvaluatorFilter<ILoggingEvent> buildJaninoEvaluatorFilter() {
         DingTalkRobotAlarmProperties.LogConfig logConfig = dingTalkRobotAlarmProperties.getLogConfig();
-        if (StringUtils.hasText(logConfig.getLogKeyWord())) {
-            // 表达式实践  http://logback.qos.ch/manual/filters.html#EvaluatorFilter
-            // 可以使用 event、message、logger、loggerContext、mdc、throwable、throwableProxy 等关键字
-            EvaluatorFilter<ILoggingEvent> evaluatorFilter = new EvaluatorFilter<ILoggingEvent>();
-            JaninoEventEvaluator eventEvaluator = new JaninoEventEvaluator();
-            // 需要存在关键字才打印
-            eventEvaluator.setExpression("return formattedMessage.contains(\"" + logConfig.getLogKeyWord() + "\");");
-            evaluatorFilter.setEvaluator(eventEvaluator);
-            eventEvaluator.setContext(loggerContext);
+        if (!CollectionUtils.isEmpty(logConfig.getLogKeyWords())) {
+            StringBuffer buffer = new StringBuffer("return ");
+            for (int index = 0; index < logConfig.getLogKeyWords().size(); index++) {
+                String keyword = logConfig.getLogKeyWords().get(index);
+                if (index != 0 && index != logConfig.getLogKeyWords().size()) {
+                    buffer.append(" || ");
+                }
+                buffer.append(" formattedMessage.contains(\"").append(keyword).append("\")");
 
-            evaluatorFilter.setOnMatch(FilterReply.ACCEPT);
-            evaluatorFilter.setOnMismatch(FilterReply.DENY);
-            eventEvaluator.start();
-            evaluatorFilter.start();
-            return evaluatorFilter;
+            }
+            buffer.append(";");
+            return getEvaluatorFilter(buffer.toString());
+        } else if (StringUtils.hasText(logConfig.getKewWordExpression())) {
+            return getEvaluatorFilter(logConfig.getKewWordExpression());
         }
         return null;
+    }
+
+
+    /**
+     * 构建表达式 DEBUG INFO WARN ERROR event message formattedMessage logger loggerContext level
+     * timeStamp  marker mdc throwableProxy throwable 等等
+     *
+     * @param expression
+     * @return
+     */
+    private EvaluatorFilter<ILoggingEvent> getEvaluatorFilter(String expression) {
+        // 表达式实践  http://logback.qos.ch/manual/filters.html#EvaluatorFilter
+        // 可以使用 event、message、logger、loggerContext、mdc、throwable、throwableProxy 等关键字
+        EvaluatorFilter<ILoggingEvent> evaluatorFilter = new EvaluatorFilter<ILoggingEvent>();
+        JaninoEventEvaluator eventEvaluator = new JaninoEventEvaluator();
+        // 需要存在关键字才打印
+        eventEvaluator.setExpression(expression);
+        evaluatorFilter.setEvaluator(eventEvaluator);
+        eventEvaluator.setContext(loggerContext);
+
+        evaluatorFilter.setOnMatch(FilterReply.ACCEPT);
+        evaluatorFilter.setOnMismatch(FilterReply.DENY);
+        eventEvaluator.start();
+        evaluatorFilter.start();
+        return evaluatorFilter;
     }
 
     /**
