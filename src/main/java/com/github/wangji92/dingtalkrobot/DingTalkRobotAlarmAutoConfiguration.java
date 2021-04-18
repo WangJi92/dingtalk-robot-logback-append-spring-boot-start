@@ -61,7 +61,7 @@ public class DingTalkRobotAlarmAutoConfiguration {
         // Semantics of this value are identical to that of Thread.join(long).
         asyncAppender.setMaxFlushTime(DEFAULT_MAX_FLUSH_TIME);
 
-        asyncAppender.setName("dingTalkRobotAsync");
+        asyncAppender.setName("dRobotAsync");
         return asyncAppender;
     }
 

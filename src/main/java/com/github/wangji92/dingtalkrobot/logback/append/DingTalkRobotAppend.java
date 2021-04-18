@@ -32,7 +32,7 @@ public class DingTalkRobotAppend extends UnsynchronizedAppenderBase<ILoggingEven
 
     public DingTalkRobotAppend() {
         super();
-        super.setName("dingTalkRobot");
+        super.setName("dRobot");
     }
 
     public DingTalkRobotLayout getLayout() {
