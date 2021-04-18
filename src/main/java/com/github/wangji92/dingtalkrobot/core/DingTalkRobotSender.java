@@ -51,8 +51,8 @@ public class DingTalkRobotSender {
      * @param sendRequest
      */
     public void sendToRobot(OapiRobotSendRequest sendRequest) {
-        //每个机器人每分钟最多发送20条
         try {
+            //每个机器人每分钟最多发送20条、限流处理一下
             rateLimiter.acquire();
             Long timestamp = System.currentTimeMillis();
             String url = webhook;
@@ -62,15 +62,19 @@ public class DingTalkRobotSender {
             }
             DingTalkClient client = new DefaultDingTalkClient(url);
             try {
-                OapiRobotSendResponse execute = client.execute(sendRequest);
-                if (!execute.isSuccess()) {
-                    log.debug("send dingtalk errorCode={} errorMsg={}", execute.getErrcode(), execute.getErrmsg());
+                OapiRobotSendResponse response = client.execute(sendRequest);
+                if (!response.isSuccess()) {
+                    System.out.println(String.format("send dingtalk errorCode=%s errorMsg=%s", response.getErrcode(), response.getErrmsg()));
                 }
             } catch (ApiException e) {
-                log.debug("send dingtalk api error", e);
+                System.out.println(String.format("send dingtalk api error=%s", e.getMessage()));
             }
         } catch (Exception e) {
-            log.debug("send dingtalk error last", e);
+            /**
+             * 这里不能写日志了
+             * @see ch.qos.logback.core.UnsynchronizedAppenderBase#addError(String)
+             */
+            System.out.println(String.format("send dingtalk error last=%s", e.getMessage()));
         }
     }
 
