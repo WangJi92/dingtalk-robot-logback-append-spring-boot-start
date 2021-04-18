@@ -3,6 +3,7 @@
     <!-- 定义日志文件 输出位置 -->
     <property name="log_dir" value="~/log/"/>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <contextListener class="com.github.wangji92.dingtalkrobot.logback.listener.LoggerStartupListener"/>
 
     <!--    https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-custom-log-levels-->
     <springProperty scope="context" name="app" source="spring.application.name" defaultValue="not define name"/>
@@ -29,12 +30,17 @@
     <springProperty scope="context" name="dingTalkQuickLinkClickUrl"
                     source="spring.dingtalk.logback.append.quick-link-config.click-url" defaultValue=""/>
 
+
     <!-- ConsoleAppender 控制台输出日志 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
                 <!-- 设置日志输出格式 -->
-                %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger - %msg%n
+<!--                %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger - %msg%n-->
+                - env: ${env}%n- app: ${app}%n- ip: ${localIp}%n- time: %d{yyyy-MM-dd HH:mm:ss.SSS}%n- thread: %thread%n- level: %level%n- logger: %logger%n- class: %class%n- method: %method%n- line: %line%n- mdc: %mdc%n- message: %msg%n- stackTrace %ex{10}%n
+
+
+<!--                %thread%mdc%level%logger%msg-->
             </pattern>
         </encoder>
     </appender>
@@ -42,12 +48,12 @@
     <appender name="dingtalk" class="com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend">
         <webhook>${dingTalkRobotWebhook}</webhook>
         <signSecret>${dingTalkRobotSignSecret}</signSecret>
+        <robotTitle>${dingTalkRobotTitle}</robotTitle>
         <layout class="com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout">
             <env>${env}</env>
             <app>${app}</app>
             <clickDescription>${dingTalkQuickLinkClickDescription}</clickDescription>
             <clickUrl>${dingTalkQuickLinkClickUrl}</clickUrl>
-            <presentationHeader>${dingTalkRobotTitle}</presentationHeader>
         </layout>
     </appender>
 
@@ -77,10 +83,10 @@
 
     <root>
         <!-- 打印debug级别日志及以上级别日志 -->
-        <level value="debug"/>
+        <level value="info"/>
         <!-- 控制台输出 -->
         <appender-ref ref="console"/>
 
-        <appender-ref ref="asyncDingTalk"/>
+<!--        <appender-ref ref="asyncDingTalk"/>-->
     </root>
 </configuration>
