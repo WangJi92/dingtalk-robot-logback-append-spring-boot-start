@@ -25,15 +25,13 @@ public class TestController {
      */
     @GetMapping("/logError")
     public ResponseEntity<Integer> logError(@RequestParam(required = false) String message) {
+        MDC.put("testMdc", "testMdc");
+        MDC.put("testMdc2", "testMdc2");
         try {
             doException();
         } catch (Exception e) {
-            log.error("exception {}",message, e);
+            log.error("exception {}", message, e);
         }
-
-        MDC.put("testMdc", "testMdc");
-        MDC.put("testMdc2", "testMdc2");
-
         return ResponseEntity.ok(200);
     }
 

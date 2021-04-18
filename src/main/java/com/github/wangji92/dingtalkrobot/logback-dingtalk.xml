@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <included>
+    <!--    当前配置给予参考 复制到自己的项目里面去-->
     <contextListener class="com.github.wangji92.dingtalkrobot.logback.listener.LoggerStartupListener"/>
     <!--    https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-custom-log-levels-->
     <springProperty scope="context" name="app" source="spring.application.name" defaultValue="not define name"/>
@@ -28,7 +29,7 @@
     <springProperty scope="context" name="dingTalkQuickLinkClickUrl"
                     source="spring.dingtalk.logback.append.quick-link-config.click-url" defaultValue=""/>
 
-
+    <!--自定义layout的效果-->
     <appender name="dingtalkCustom" class="com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend">
         <webhook>${dingTalkRobotWebhook}</webhook>
         <signSecret>${dingTalkRobotSignSecret}</signSecret>
@@ -41,6 +42,7 @@
         </layout>
     </appender>
 
+    <!--自定义layout的效果+ AsyncAppender-->
     <appender name="asyncDingTalkCustom" class="ch.qos.logback.classic.AsyncAppender">
         <includeCallerData>${asyncAppenderIncludeCallerData}</includeCallerData>
         <queueSize>${asyncAppenderQueueSize}</queueSize>
@@ -60,10 +62,12 @@
         </filter>
     </appender>
 
+    <!--    通过logback PatternLayoutEncoder 定义 markdown 格式-->
     <appender name="dingtalkPatternLayoutEncoder"
               class="com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend">
         <webhook>${dingTalkRobotWebhook}</webhook>
         <signSecret>${dingTalkRobotSignSecret}</signSecret>
+        <robotTitle>${dingTalkRobotTitle}</robotTitle>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>- env: ${env}%n- app: ${app}%n- ip: ${localIp}%n- time: %d{yyyy-MM-dd HH:mm:ss.SSS}%n- thread:
                 %thread%n- level: %level%n- logger: %logger%n- class: %class%n- method: %method%n- line: %line%n- mdc:
@@ -73,6 +77,7 @@
         </encoder>
     </appender>
 
+    <!--    通过logback PatternLayoutEncoder 定义 markdown 格式 +AsyncAppender -->
     <appender name="asyncDingtalkPatternLayoutEncoder" class="ch.qos.logback.classic.AsyncAppender">
         <includeCallerData>${asyncAppenderIncludeCallerData}</includeCallerData>
         <queueSize>${asyncAppenderQueueSize}</queueSize>

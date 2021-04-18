@@ -3,8 +3,9 @@
     <!-- 定义日志文件 输出位置 -->
     <property name="log_dir" value="~/log/"/>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk.xml"/>
+    <!--    https://blog.jboost.cn/trick-logback-prop.html-->
     <contextListener class="com.github.wangji92.dingtalkrobot.logback.listener.LoggerStartupListener"/>
-
     <!--    https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-custom-log-levels-->
     <springProperty scope="context" name="app" source="spring.application.name" defaultValue="not define name"/>
     <springProperty scope="context" name="env" source="spring.dingtalk.logback.append.application-config.env"
@@ -20,7 +21,8 @@
     <springProperty scope="context" name="asyncAppenderNeverBlock"
                     source="spring.dingtalk.logback.append.log-config.async-appender-never-block" defaultValue=""/>
     <springProperty scope="context" name="asyncAppenderIncludeCallerData"
-                    source="spring.dingtalk.logback.append.log-config.async-appender-include-caller-data" defaultValue=""/>
+                    source="spring.dingtalk.logback.append.log-config.async-appender-include-caller-data"
+                    defaultValue=""/>
     <springProperty scope="context" name="dingTalkLogLevel"
                     source="spring.dingtalk.logback.append.log-config.log-level" defaultValue=""/>
     <springProperty scope="context" name="dingTalkLogConfigKewWordExpression"
@@ -34,44 +36,37 @@
     <!-- ConsoleAppender 控制台输出日志 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>
-                <!-- 设置日志输出格式 -->
-<!--                %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger - %msg%n-->
-                - env: ${env}%n- app: ${app}%n- ip: ${localIp}%n- time: %d{yyyy-MM-dd HH:mm:ss.SSS}%n- thread: %thread%n- level: %level%n- logger: %logger%n- class: %class%n- method: %method%n- line: %line%n- mdc: %mdc%n- message: %msg%n- stackTrace %ex{10}%n
-
-
-<!--                %thread%mdc%level%logger%msg-->
+            <pattern>env: ${env} app: ${app} time: %d{yyyy-MM-dd HH:mm:ss.SSS} thread: %thread level: %level logger: %logger class: %class method: %method line: %line mdc: %mdc%n message: %msg stackTrace %ex{5}%n
             </pattern>
         </encoder>
     </appender>
 
-    <appender name="dingtalk" class="com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend">
+    <appender name="dingtalkPatternLayoutEncoder"
+              class="com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend">
         <webhook>${dingTalkRobotWebhook}</webhook>
         <signSecret>${dingTalkRobotSignSecret}</signSecret>
         <robotTitle>${dingTalkRobotTitle}</robotTitle>
-        <layout class="com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout">
-            <env>${env}</env>
-            <app>${app}</app>
-            <clickDescription>${dingTalkQuickLinkClickDescription}</clickDescription>
-            <clickUrl>${dingTalkQuickLinkClickUrl}</clickUrl>
-        </layout>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern># ${dingTalkRobotTitle}%n- env: ${env}%n- app: ${app}%n- ip: ${localIp}%n- time: %d{yyyy-MM-dd
+                HH:mm:ss.SSS}%n- thread:
+                %thread%n- level: %level%n- logger: %logger%n- class: %class%n- method: %method%n- line: %line%n- mdc:
+                %mdc%n- message: %msg%n- stackTrace %ex{5}%n
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
     </appender>
 
-    <appender name="asyncDingTalk" class="ch.qos.logback.classic.AsyncAppender">
+    <appender name="asyncDingtalkPatternLayoutEncoder" class="ch.qos.logback.classic.AsyncAppender">
         <includeCallerData>${asyncAppenderIncludeCallerData}</includeCallerData>
         <queueSize>${asyncAppenderQueueSize}</queueSize>
         <neverBlock>${asyncAppenderNeverBlock}</neverBlock>
-        <appender-ref ref="dingtalk"/>
+        <appender-ref ref="dingtalkPatternLayoutEncoder"/>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>${dingTalkLogLevel}</level>
         </filter>
-
         <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
             <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
                 <expression>${dingTalkLogConfigKewWordExpression}</expression>
-<!--                <expression>return (formattedMessage.contains("dingtalk") || formattedMessage.contains("keyword")) &amp;&amp;-->
-<!--                    level>= INFO ;-->
-<!--                </expression>-->
             </evaluator>
             <!-- 用于配置符合过滤条件的操作 -->
             <onMatch>ACCEPT</onMatch>
@@ -86,7 +81,6 @@
         <level value="info"/>
         <!-- 控制台输出 -->
         <appender-ref ref="console"/>
-
-<!--        <appender-ref ref="asyncDingTalk"/>-->
+        <appender-ref ref="asyncDingtalkPatternLayoutEncoder"/>
     </root>
 </configuration>
