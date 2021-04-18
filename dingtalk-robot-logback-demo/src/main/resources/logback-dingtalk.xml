@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <!-- 定义日志文件 输出位置 -->
+    <property name="log_dir" value="~/log/"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!--    https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-custom-log-levels-->
+    <springProperty scope="context" name="app" source="spring.application.name" defaultValue="not define name"/>
+    <springProperty scope="context" name="env" source="spring.dingtalk.logback.append.application-config.env"
+                    defaultValue="未定义"/>
+    <springProperty scope="context" name="dingTalkRobotSignSecret"
+                    source="spring.dingtalk.logback.append.robot-config.sign-secret" defaultValue=""/>
+    <springProperty scope="context" name="dingTalkRobotWebhook"
+                    source="spring.dingtalk.logback.append.robot-config.webhook" defaultValue=""/>
+    <springProperty scope="context" name="dingTalkRobotTitle"
+                    source="spring.dingtalk.logback.append.robot-config.robot-title" defaultValue=""/>
+    <springProperty scope="context" name="asyncAppenderQueueSize"
+                    source="spring.dingtalk.logback.append.log-config.async-appender-queue-size" defaultValue=""/>
+    <springProperty scope="context" name="asyncAppenderNeverBlock"
+                    source="spring.dingtalk.logback.append.log-config.async-appender-never-block" defaultValue=""/>
+    <springProperty scope="context" name="asyncAppenderIncludeCallerData"
+                    source="spring.dingtalk.logback.append.log-config.async-appender-include-caller-data" defaultValue=""/>
+    <springProperty scope="context" name="dingTalkLogLevel"
+                    source="spring.dingtalk.logback.append.log-config.log-level" defaultValue=""/>
+    <springProperty scope="context" name="dingTalkLogConfigKewWordExpression"
+                    source="spring.dingtalk.logback.append.log-config.kew-word-expression" defaultValue=""/>
+    <springProperty scope="context" name="dingTalkQuickLinkClickDescription"
+                    source="spring.dingtalk.logback.append.quick-link-config.click-description" defaultValue=""/>
+    <springProperty scope="context" name="dingTalkQuickLinkClickUrl"
+                    source="spring.dingtalk.logback.append.quick-link-config.click-url" defaultValue=""/>
+
+    <!-- ConsoleAppender 控制台输出日志 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                <!-- 设置日志输出格式 -->
+                %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="dingtalk" class="com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend">
+        <webhook>${dingTalkRobotWebhook}</webhook>
+        <signSecret>${dingTalkRobotSignSecret}</signSecret>
+        <layout class="com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout">
+            <env>${env}</env>
+            <app>${app}</app>
+            <clickDescription>${dingTalkQuickLinkClickDescription}</clickDescription>
+            <clickUrl>${dingTalkQuickLinkClickUrl}</clickUrl>
+            <presentationHeader>${dingTalkRobotTitle}</presentationHeader>
+        </layout>
+    </appender>
+
+    <appender name="asyncDingTalk" class="ch.qos.logback.classic.AsyncAppender">
+        <includeCallerData>${asyncAppenderIncludeCallerData}</includeCallerData>
+        <queueSize>${asyncAppenderQueueSize}</queueSize>
+        <neverBlock>${asyncAppenderNeverBlock}</neverBlock>
+        <appender-ref ref="dingtalk"/>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${dingTalkLogLevel}</level>
+        </filter>
+
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
+                <expression>${dingTalkLogConfigKewWordExpression}</expression>
+<!--                <expression>return (formattedMessage.contains("dingtalk") || formattedMessage.contains("keyword")) &amp;&amp;-->
+<!--                    level>= INFO ;-->
+<!--                </expression>-->
+            </evaluator>
+            <!-- 用于配置符合过滤条件的操作 -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 用于配置不符合过滤条件的操作 -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <root>
+        <!-- 打印debug级别日志及以上级别日志 -->
+        <level value="debug"/>
+        <!-- 控制台输出 -->
+        <appender-ref ref="console"/>
+
+        <appender-ref ref="asyncDingTalk"/>
+    </root>
+</configuration>
