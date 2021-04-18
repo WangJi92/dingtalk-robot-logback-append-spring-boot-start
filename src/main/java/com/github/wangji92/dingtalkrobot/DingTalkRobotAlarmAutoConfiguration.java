@@ -1,14 +1,29 @@
 package com.github.wangji92.dingtalkrobot;
 
 import ch.qos.logback.classic.AsyncAppender;
-import com.github.wangji92.dingtalkrobot.core.DingTalkRobotAppendConfigurator;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.boolex.JaninoEventEvaluator;
+import ch.qos.logback.classic.filter.ThresholdFilter;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.filter.EvaluatorFilter;
+import ch.qos.logback.core.spi.FilterReply;
+import com.github.wangji92.dingtalkrobot.core.DingTalkRobotAppendBuilder;
+import com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.PostConstruct;
 
 import static ch.qos.logback.core.AsyncAppenderBase.DEFAULT_MAX_FLUSH_TIME;
 import static ch.qos.logback.core.AsyncAppenderBase.DEFAULT_QUEUE_SIZE;
@@ -24,15 +39,64 @@ import static ch.qos.logback.core.AsyncAppenderBase.DEFAULT_QUEUE_SIZE;
 @Slf4j
 public class DingTalkRobotAlarmAutoConfiguration {
 
+    /**
+     * logback loggerContext
+     */
+    private LoggerContext loggerContext = null;
 
-    @Bean
-    public DingTalkRobotAppendConfigurator dingTalkRobotAppendConfigurator(DingTalkRobotAlarmProperties dingTalkRobotAlarmProperties, ApplicationContext applicationContext) {
-        return new DingTalkRobotAppendConfigurator(dingTalkRobotAlarmProperties, applicationContext, buildAsyncAppender());
+    @Autowired
+    private DingTalkRobotAlarmProperties dingTalkRobotAlarmProperties;
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
+
+    @PostConstruct
+    public void init() {
+        this.initLoggerContext();
+        this.configCheck();
+
+        DingTalkRobotAppend dingTalkRobotAppend = this.buildDingTalkRobotAppend();
+
+
+        ThresholdFilter thresholdFilter = this.buildThresholdFilter();
+        EvaluatorFilter<ILoggingEvent> evaluatorFilter = this.buildJaninoEvaluatorFilter();
+
+
+        AsyncAppender asyncAppender = this.buildAsyncAppender();
+        asyncAppender.addAppender(dingTalkRobotAppend);
+        asyncAppender.addFilter(thresholdFilter);
+
+        if (evaluatorFilter != null) {
+            asyncAppender.addFilter(evaluatorFilter);
+        }
+
+        this.addLoggerNameDingTalkRobotAppender(asyncAppender);
+
+        asyncAppender.start();
     }
 
+    /**
+     * 构建 DingTalkRobotAppend
+     *
+     * @return
+     */
+    @Bean
+    public DingTalkRobotAppend buildDingTalkRobotAppend() {
+        DingTalkRobotAppendBuilder dingTalkRobotAppendBuilder = new DingTalkRobotAppendBuilder(dingTalkRobotAlarmProperties, applicationContext);
+        dingTalkRobotAppendBuilder.setLoggerContext(loggerContext);
+        return dingTalkRobotAppendBuilder.buildDingTalkRobotAppend();
+    }
+
+    /**
+     * 构建 异步的 AsyncAppender 包装 DingTalkRobotAppend
+     *
+     * @return
+     */
     @Bean
     public AsyncAppender buildAsyncAppender() {
         AsyncAppender asyncAppender = new AsyncAppender();
+        asyncAppender.setContext(loggerContext);
         // http://logback.qos.ch/manual/appenders.html#AsyncAppender
         // 提取调用方数据可能相当昂贵。
         // 若要提高性能，默认情况下，当事件添加到事件队列时，不会提取与事件关联的调用方数据。
@@ -63,6 +127,83 @@ public class DingTalkRobotAlarmAutoConfiguration {
 
         asyncAppender.setName("dRobotAsync");
         return asyncAppender;
+    }
+
+    /**
+     * 添加 logger name 到 dingtalk robot append
+     *
+     * @param asyncAppender
+     */
+    private void addLoggerNameDingTalkRobotAppender(AsyncAppender asyncAppender) {
+        DingTalkRobotAlarmProperties.LogConfig logConfig = dingTalkRobotAlarmProperties.getLogConfig();
+        String appendLoggerNames = logConfig.getAppendLoggerNames();
+        for (String loggerName : appendLoggerNames.split(",")) {
+            Logger logger = loggerContext.getLogger(loggerName);
+            if (logger == null) {
+                log.warn("dingtalk alarm logger name ={} not found", loggerName);
+                continue;
+            }
+            logger.addAppender(asyncAppender);
+        }
+    }
+
+    /**
+     * 配置检查
+     */
+    private void configCheck() {
+        Assert.notNull(dingTalkRobotAlarmProperties.getLogConfig(), "dingtalk robot log config  must not be null");
+        Assert.notNull(dingTalkRobotAlarmProperties.getLogConfig().getLogLevel(), "dingtalk robot log config log level must not be null");
+        Assert.hasText(dingTalkRobotAlarmProperties.getLogConfig().getAppendLoggerNames(), "dingtalk robot not config logger name[eg: root,org.springframework.boot]");
+    }
+
+    /**
+     * 初始化日志上下文 @see org.springframework.boot.logging.logback.LogbackLoggingSystemLogbackLoggingSystem#getLoggerContext()
+     */
+    private void initLoggerContext() {
+        ILoggerFactory factory = LoggerFactory.getILoggerFactory();
+        if (!(factory instanceof LoggerContext)) {
+            throw new IllegalArgumentException("LoggerFactory is not a Logback LoggerContext");
+        }
+        this.loggerContext = (LoggerContext) factory;
+    }
+
+    /**
+     * 构建表达式 过滤器
+     *
+     * @return
+     */
+    private EvaluatorFilter<ILoggingEvent> buildJaninoEvaluatorFilter() {
+        DingTalkRobotAlarmProperties.LogConfig logConfig = dingTalkRobotAlarmProperties.getLogConfig();
+        if (StringUtils.hasText(logConfig.getLogKeyWord())) {
+            // 表达式实践  http://logback.qos.ch/manual/filters.html#EvaluatorFilter
+            // 可以使用 event、message、logger、loggerContext、mdc、throwable、throwableProxy 等关键字
+            EvaluatorFilter<ILoggingEvent> evaluatorFilter = new EvaluatorFilter<ILoggingEvent>();
+            JaninoEventEvaluator eventEvaluator = new JaninoEventEvaluator();
+            // 需要存在关键字才打印
+            eventEvaluator.setExpression("return formattedMessage.contains(\"" + logConfig.getLogKeyWord() + "\");");
+            evaluatorFilter.setEvaluator(eventEvaluator);
+            eventEvaluator.setContext(loggerContext);
+
+            evaluatorFilter.setOnMatch(FilterReply.ACCEPT);
+            evaluatorFilter.setOnMismatch(FilterReply.DENY);
+            eventEvaluator.start();
+            evaluatorFilter.start();
+            return evaluatorFilter;
+        }
+        return null;
+    }
+
+    /**
+     * 构建拦截器 伐值以上的日志都会打印 http://logback.qos.ch/manual/filters.html#ThresholdFilter
+     *
+     * @return
+     */
+    private ThresholdFilter buildThresholdFilter() {
+        DingTalkRobotAlarmProperties.LogConfig logConfig = dingTalkRobotAlarmProperties.getLogConfig();
+        ThresholdFilter thresholdFilter = new ThresholdFilter();
+        thresholdFilter.setLevel(logConfig.getLogLevel().name());
+        thresholdFilter.start();
+        return thresholdFilter;
     }
 
 }
