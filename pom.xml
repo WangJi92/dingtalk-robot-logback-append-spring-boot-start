@@ -10,9 +10,9 @@
     </parent>
     <groupId>com.github.WangJi92</groupId>
     <artifactId>dingtalk-robot-logback-append-spring-boot-start</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>dingtalk-robot-logback-append-spring-boot-start</name>
-    <description>钉钉告警机器人信息通知到群</description>
+    <description>自定义logback append 将日志 通过钉钉API将日志信息通知到群</description>
     <url>https://github.com/WangJi92/dingtalk-robot-logback-append-spring-boot-start</url>
     <properties>
         <java.version>1.8</java.version>
