@@ -2,6 +2,9 @@
 <included>
     <!--    当前配置给予参考 复制到自己的项目里面去-->
     <contextListener class="com.github.wangji92.dingtalkrobot.logback.listener.LoggerStartupListener"/>
+
+    <conversionRule conversionWord="linkDetail"
+                    converterClass="com.github.wangji92.dingtalkrobot.logback.pattern.LinkDetailConverter" />
     <!--    https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-custom-log-levels-->
     <springProperty scope="context" name="app" source="spring.application.name" defaultValue="not define name"/>
     <springProperty scope="context" name="env" source="spring.dingtalk.logback.append.application-config.env"
@@ -24,7 +27,11 @@
     <springProperty scope="context" name="dingTalkLogConfigKewWordExpression"
                     source="spring.dingtalk.logback.append.log-config.kew-word-expression" defaultValue=""/>
     <springProperty scope="context" name="dingTalkQuickLinkClickDescription"
-                    source="spring.dingtalk.logback.append.quick-link-config.click-description" defaultValue=""/>
+                    source="spring.dingtalk.logback.append.quick-link-config.click-description" defaultValue="点击查看详情"/>
     <springProperty scope="context" name="dingTalkQuickLinkClickUrl"
                     source="spring.dingtalk.logback.append.quick-link-config.click-url" defaultValue=""/>
+
+
+   <!--可以覆盖定义pattern () 要进行转义 http://logback.qos.ch/manual/layouts.html#Parentheses-->
+    <property name="DINGTALK_ROBOT_LOG_PATTERN" value="# ${dingTalkRobotTitle}%n- env: ${env}%n- app: ${app}%n- ip: ${localIp}%n- time: %d{yyyy-MM-dd HH:mm:ss.SSS}%n- thread: %thread%n- level: %level%n- logger: %logger%n- class: %class%n- method: %method%n- line: %line%n- mdc: %mdc%n- message: %msg%n- stackTrace %ex{5}%n- ${dingTalkQuickLinkClickDescription}: [%linkDetail{${dingTalkQuickLinkClickUrl}}]\\(%linkDetail{${dingTalkQuickLinkClickUrl}}\\)%n "/>
 </included>

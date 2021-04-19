@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <included>
-    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml"/>
     <if condition='property("dingTalkRobotWebhook").length()>0 &amp;&amp; property("dingTalkRobotTitle").length()>0'>
         <!--    http://logback.qos.ch/manual/configuration.html#conditional-->
         <!--    The condition is a Java expression in which only context properties or system properties are accessible.

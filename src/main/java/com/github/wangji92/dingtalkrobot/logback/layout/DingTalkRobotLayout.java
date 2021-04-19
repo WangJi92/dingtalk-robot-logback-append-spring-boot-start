@@ -9,6 +9,7 @@ import ch.qos.logback.classic.spi.IThrowableProxy;
 import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.LayoutBase;
 import com.github.wangji92.dingtalkrobot.utils.IpUtils;
+import com.google.common.collect.Lists;
 import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -49,6 +50,7 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
         methodOfCallerConverter.start();
         classOfCallerConverter.start();
         methodOfCallerConverter.start();
+        throwableProxyConverter.setOptionList(Lists.newArrayList("5"));
         throwableProxyConverter.start();
         ip = IpUtils.getIpAddress();
         super.start();

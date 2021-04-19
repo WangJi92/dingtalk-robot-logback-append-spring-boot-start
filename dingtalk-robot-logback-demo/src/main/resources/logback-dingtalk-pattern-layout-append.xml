@@ -2,8 +2,16 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="true">
     <!--    spring 默认的-->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml"/>
+
+<!--    <property name="DINGTALK_ROBOT_LOG_PATTERN" value="\- \\(${dingTalkQuickLinkClickUrl}\\)%n"/>-->
+
+<!--    <property scope="context" name="dingTalkQuickLinkClickUrl" value="https://www.baidu.com?{hostname}}"/>-->
+
     <!--    钉钉机器人告警处理 使用pattern layout -->
     <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-pattern-layout.xml"/>
+
+
 
     <!-- ConsoleAppender 控制台输出日志 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">

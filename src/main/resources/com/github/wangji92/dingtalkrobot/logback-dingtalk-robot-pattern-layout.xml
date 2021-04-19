@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <included>
-    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml"/>
     <if condition='property("dingTalkRobotWebhook").length()>0 &amp;&amp; property("dingTalkRobotTitle").length()>0'>
         <!--    http://logback.qos.ch/manual/configuration.html#conditional-->
         <!--    The condition is a Java expression in which only context properties or system properties are accessible.
@@ -18,7 +17,7 @@
                 <robotTitle>${dingTalkRobotTitle}</robotTitle>
                 <!--                不要随便格式化 很危险-->
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>- env: ${env}%n- app: ${app}%n- ip: ${localIp}%n- time: %d{yyyy-MM-dd HH:mm:ss.SSS}%n- thread: %thread%n- level: %level%n- logger: %logger%n- class: %class%n- method: %method%n- line: %line%n- mdc: %mdc%n- message: %msg%n- stackTrace %ex{5}%n</pattern>
+                    <pattern>${DINGTALK_ROBOT_LOG_PATTERN}</pattern>
                     <charset>UTF-8</charset>
                 </encoder>
             </appender>
