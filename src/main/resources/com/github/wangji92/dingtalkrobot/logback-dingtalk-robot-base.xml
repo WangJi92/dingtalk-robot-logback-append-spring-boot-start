@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <!--    当前配置给予参考 复制到自己的项目里面去-->
+    <contextListener class="com.github.wangji92.dingtalkrobot.logback.listener.LoggerStartupListener"/>
+    <!--    https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-custom-log-levels-->
+    <springProperty scope="context" name="app" source="spring.application.name" defaultValue="not define name"/>
+    <springProperty scope="context" name="env" source="spring.dingtalk.logback.append.application-config.env"
+                    defaultValue=""/>
+    <springProperty scope="context" name="dingTalkRobotSignSecret"
+                    source="spring.dingtalk.logback.append.robot-config.sign-secret" defaultValue=""/>
+    <springProperty scope="context" name="dingTalkRobotWebhook"
+                    source="spring.dingtalk.logback.append.robot-config.webhook" defaultValue=""/>
+    <springProperty scope="context" name="dingTalkRobotTitle"
+                    source="spring.dingtalk.logback.append.robot-config.robot-title" defaultValue="钉钉日志告警"/>
+    <springProperty scope="context" name="asyncAppenderQueueSize"
+                    source="spring.dingtalk.logback.append.log-config.async-appender-queue-size" defaultValue="256"/>
+    <springProperty scope="context" name="asyncAppenderNeverBlock"
+                    source="spring.dingtalk.logback.append.log-config.async-appender-never-block" defaultValue="true"/>
+    <springProperty scope="context" name="asyncAppenderIncludeCallerData"
+                    source="spring.dingtalk.logback.append.log-config.async-appender-include-caller-data"
+                    defaultValue="true"/>
+    <springProperty scope="context" name="dingTalkLogLevel"
+                    source="spring.dingtalk.logback.append.log-config.log-level" defaultValue="ERROR"/>
+    <springProperty scope="context" name="dingTalkLogConfigKewWordExpression"
+                    source="spring.dingtalk.logback.append.log-config.kew-word-expression" defaultValue=""/>
+    <springProperty scope="context" name="dingTalkQuickLinkClickDescription"
+                    source="spring.dingtalk.logback.append.quick-link-config.click-description" defaultValue=""/>
+    <springProperty scope="context" name="dingTalkQuickLinkClickUrl"
+                    source="spring.dingtalk.logback.append.quick-link-config.click-url" defaultValue=""/>
+</included>

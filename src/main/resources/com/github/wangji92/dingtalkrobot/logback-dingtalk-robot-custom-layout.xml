@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml"/>
+    <if condition='property("dingTalkRobotWebhook").length()>0 &amp;&amp; property("dingTalkRobotTitle").length()>0'>
+        <!--    http://logback.qos.ch/manual/configuration.html#conditional-->
+        <!--    The condition is a Java expression in which only context properties or system properties are accessible.
+                For a key passed as argument, the property() or its shorter equivalent p() methods return the String value of the property.
+                For example, to access the value of a property with key "k", you would write property("k") or equivalently p("k").
+                If the property with key "k" is undefined, the property method will return the empty string and not null.
+               This avoids the need to check for null values.-->
+        <then>
+            <!--自定义layout的效果-->
+            <appender name="dingtalkCustom"
+                      class="com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend">
+                <webhook>${dingTalkRobotWebhook}</webhook>
+                <signSecret>${dingTalkRobotSignSecret}</signSecret>
+                <robotTitle>${dingTalkRobotTitle}</robotTitle>
+                <layout class="com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout">
+                    <env>${env}</env>
+                    <app>${app}</app>
+                    <clickDescription>${dingTalkQuickLinkClickDescription}</clickDescription>
+                    <clickUrl>${dingTalkQuickLinkClickUrl}</clickUrl>
+                </layout>
+            </appender>
+            <!--自定义layout的效果+ AsyncAppender-->
+            <appender name="asyncDingTalkCustom" class="ch.qos.logback.classic.AsyncAppender">
+                <includeCallerData>${asyncAppenderIncludeCallerData:-true}</includeCallerData>
+                <queueSize>${asyncAppenderQueueSize:-256}</queueSize>
+                <neverBlock>${asyncAppenderNeverBlock:-true}</neverBlock>
+                <appender-ref ref="dingtalkCustom"/>
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                    <level>${dingTalkLogLevel:-ERROR}</level>
+                </filter>
+                <!--                可以通过表达式过滤 [eg 关键字]-->
+                <!--                http://logback.qos.ch/manual/filters.html#EvaluatorFilter-->
+                <!--                return  formattedMessage.contains("dingding") ||  formattedMessage.contains("xxxKeWord");-->
+                <if condition='property("dingTalkLogConfigKewWordExpression").length()>0'>
+                    <then>
+                        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+                            <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
+                                <expression>${dingTalkLogConfigKewWordExpression}</expression>
+                            </evaluator>
+                            <!-- 用于配置符合过滤条件的操作 -->
+                            <onMatch>ACCEPT</onMatch>
+                            <!-- 用于配置不符合过滤条件的操作 -->
+                            <onMismatch>DENY</onMismatch>
+                        </filter>
+                    </then>
+                </if>
+            </appender>
+        </then>
+    </if>
+</included>
