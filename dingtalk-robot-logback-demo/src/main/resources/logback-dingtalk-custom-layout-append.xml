@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="true">
-    <!-- 定义日志文件 输出位置 -->
-    <property name="log_dir" value="~/log/"/>
+    <!--    spring 默认的-->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!--    钉钉机器人告警处理 使用自定义的layout 可以了解一下 如何处理的 推荐使用 pattern-layout 更加灵活-->
     <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-custom-layout.xml"/>
+
+    <!--    这里覆盖spring 定义的变量-->
+    <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger - %msg%n"/>
 
     <!-- ConsoleAppender 控制台输出日志 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>env: ${env} app: ${app} time: %d{yyyy-MM-dd HH:mm:ss.SSS} thread: %thread level: %level logger: %logger class: %class method: %method line: %line mdc: %mdc%n message: %msg stackTrace %ex{5}%n
-            </pattern>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
     <root>
-        <!-- 打印debug级别日志及以上级别日志 -->
         <level value="info"/>
         <!-- 控制台输出 -->
         <appender-ref ref="console"/>
+        <!--        钉钉告警处理输出-->
         <appender-ref ref="asyncDingTalkCustomLayoutAppend"/>
     </root>
 </configuration>
