@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/dingtalk-robot-logback-append-spring-boot-start.iml" filepath="$PROJECT_DIR$/dingtalk-robot-logback-append-spring-boot-start.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dingtalk-robot-logback-demo/dingtalk-robot-logback-demo.iml" filepath="$PROJECT_DIR$/dingtalk-robot-logback-demo/dingtalk-robot-logback-demo.iml" />
+    </modules>
+  </component>
+</project>

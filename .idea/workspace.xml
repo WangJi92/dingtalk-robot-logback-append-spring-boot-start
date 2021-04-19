@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0361c160-e9fe-406c-9833-e88e6acb37a8" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1rHhO1S0mfhoYfhwjqdVIvGpgAf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/lib" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/github/wangji92/dingtalkrobot" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.github.wangji92.logbackappenddemo.controller" />
+      <recent name="com.github.wangji92.logback.utils" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/lib" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.DingtalkRobotLogbackDemoApplication">
+    <configuration name="DingTalkRobotLayout" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout" />
+      <module name="dingtalk-robot-logback-append-spring-boot-start" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.wangji92.dingtalkrobot.logback.layout.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <module name="dingtalk-robot-logback-append-spring-boot-start" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <module name="dingtalk-robot-logback-append-spring-boot-start" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DingtalkRobotLogbackAlarmSpringBootStartApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="dingtalk-robot-logback-append-spring-boot-start" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.github.wangji92.logback.DingtalkRobotLogbackAlarmSpringBootStartApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DingtalkRobotLogbackDemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="dingtalk-robot-logback-demo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.github.wangji92.logbackappenddemo.DingtalkRobotLogbackDemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DingTalkRobotLayout" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpringBootOptions">
+    <option name="showAdditionalConfigNotification" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0361c160-e9fe-406c-9833-e88e6acb37a8" name="Default Changelist" comment="" />
+      <created>1618638886897</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618638886897</updated>
+      <workItem from="1618638891648" duration="24972000" />
+      <workItem from="1618672295513" duration="41981000" />
+    </task>
+    <task id="LOCAL-00001" summary="logback append 钉钉高级 简单支持">
+      <created>1618678520341</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1618678520341</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix name too long">
+      <created>1618714194741</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1618714194742</updated>
+    </task>
+    <task id="LOCAL-00003" summary="quick link fix code">
+      <created>1618715901148</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1618715901148</updated>
+    </task>
+    <task id="LOCAL-00004" summary="log change to sout">
+      <created>1618716923188</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1618716923188</updated>
+    </task>
+    <task id="LOCAL-00005" summary="extra method">
+      <created>1618717438909</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1618717438909</updated>
+    </task>
+    <task id="LOCAL-00006" summary="support JaninoEventEvaluator">
+      <created>1618722709982</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1618722709983</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Code adjustment">
+      <created>1618726187214</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1618726187214</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Code adjustment">
+      <created>1618726265522</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1618726265522</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Code adjustment">
+      <created>1618726275189</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1618726275189</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add async appender config and move build dingtalk append to bootstrap class">
+      <created>1618727310003</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1618727310003</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add async appender config and move build dingtalk append to bootstrap class">
+      <created>1618728234785</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1618728234785</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add the ability of user-defined expression and multiple keywords">
+      <created>1618730323490</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1618730323490</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add the ability of user-defined expression and multiple keywords">
+      <created>1618730543271</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1618730543271</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Add the ability of user-defined expression and multiple keywords">
+      <created>1618733249296</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1618733249296</updated>
+    </task>
+    <task id="LOCAL-00015" summary="fix name">
+      <created>1618734038740</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1618734038740</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fix name">
+      <created>1618734234807</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1618734234807</updated>
+    </task>
+    <task id="LOCAL-00017" summary="发个版本">
+      <created>1618734708125</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1618734708125</updated>
+    </task>
+    <task id="LOCAL-00018" summary="fix error">
+      <created>1618753215781</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1618753215781</updated>
+    </task>
+    <task id="LOCAL-00019" summary="demo project">
+      <created>1618755427572</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1618755427572</updated>
+    </task>
+    <task id="LOCAL-00020" summary="demo project">
+      <created>1618755447668</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1618755447668</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fix">
+      <created>1618763136842</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1618763136842</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fix">
+      <created>1618763172445</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1618763172445</updated>
+    </task>
+    <task id="LOCAL-00023" summary="define localIp">
+      <created>1618763203791</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1618763203791</updated>
+    </task>
+    <task id="LOCAL-00024" summary="add pattern layout">
+      <created>1618763368193</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1618763368193</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add include dingtalk xml">
+      <created>1618763416946</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1618763416946</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add include dingtalk xml">
+      <created>1618763480863</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1618763480864</updated>
+    </task>
+    <task id="LOCAL-00027" summary="add include dingtalk xml">
+      <created>1618764099958</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1618764099958</updated>
+    </task>
+    <task id="LOCAL-00028" summary="add example">
+      <created>1618765142215</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1618765142215</updated>
+    </task>
+    <task id="LOCAL-00029" summary="add example">
+      <created>1618765460622</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1618765460622</updated>
+    </task>
+    <task id="LOCAL-00030" summary="file not include">
+      <created>1618766261527</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1618766261527</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="logback append 钉钉高级 简单支持" />
+    <MESSAGE value="fix name too long" />
+    <MESSAGE value="quick link fix code" />
+    <MESSAGE value="log change to sout" />
+    <MESSAGE value="extra method" />
+    <MESSAGE value="support JaninoEventEvaluator" />
+    <MESSAGE value="Code adjustment" />
+    <MESSAGE value="add async appender config and move build dingtalk append to bootstrap class" />
+    <MESSAGE value="Add the ability of user-defined expression and multiple keywords" />
+    <MESSAGE value="fix name" />
+    <MESSAGE value="发个版本" />
+    <MESSAGE value="fix error" />
+    <MESSAGE value="demo project" />
+    <MESSAGE value="fix" />
+    <MESSAGE value="define localIp" />
+    <MESSAGE value="add pattern layout" />
+    <MESSAGE value="add include dingtalk xml" />
+    <MESSAGE value="add example" />
+    <MESSAGE value="file not include" />
+    <option name="LAST_COMMIT_MESSAGE" value="file not include" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/DingTalkRobotAppendAutoConfiguration.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/listener/LoggerStartupListener.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/listener/LoggerStartupListener.java</url>
+          <line>61</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/java/com/github/wangji92/logbackappenddemo/controller/TestController.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/dingtalk_robot_logback_alarm_spring_boot_start$DingtalkRobotLogbackDemoApplication.ic" NAME="DingtalkRobotLogbackDemoApplication Coverage Results" MODIFIED="1618758212014" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
