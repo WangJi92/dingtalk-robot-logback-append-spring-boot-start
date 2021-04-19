@@ -28,7 +28,7 @@
                 <includeCallerData>${asyncAppenderIncludeCallerData:-true}</includeCallerData>
                 <queueSize>${asyncAppenderQueueSize:-256}</queueSize>
                 <neverBlock>${asyncAppenderNeverBlock:-true}</neverBlock>
-                <appender-ref ref="dingtalkCustom"/>
+                <appender-ref ref="dingTalkCustomLayoutAppend"/>
                 <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
                     <level>${dingTalkLogLevel:-ERROR}</level>
                 </filter>

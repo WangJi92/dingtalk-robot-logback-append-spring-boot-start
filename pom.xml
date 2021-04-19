@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.github.WangJi92</groupId>
     <artifactId>dingtalk-robot-logback-append-spring-boot-start</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>dingtalk-robot-logback-append-spring-boot-start</name>
     <description>自定义logback append 将日志 通过钉钉API将日志信息通知到群</description>
     <url>https://github.com/WangJi92/dingtalk-robot-logback-append-spring-boot-start</url>
@@ -99,11 +99,6 @@
             <groupId>org.codehaus.janino</groupId>
             <artifactId>janino</artifactId>
             <version>${janino-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>6.6</version>
         </dependency>
     </dependencies>
 

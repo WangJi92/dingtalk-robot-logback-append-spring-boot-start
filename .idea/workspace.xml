@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0361c160-e9fe-406c-9833-e88e6acb37a8" name="Default Changelist" comment="" />
+    <list default="true" id="0361c160-e9fe-406c-9833-e88e6acb37a8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_logstash_logback_logstash_logback_encoder_6_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dingtalk-robot-logback-demo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dingtalk-robot-logback-demo/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/logback-dingtalk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/logback-dingtalk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +56,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/lib" />
-    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.file-colors" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -65,6 +71,20 @@
       <recent name="$PROJECT_DIR$/src/main/resources/lib" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
+  </component>
+  <component name="RestServicesNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="Found 1 services " type="fcff1e1b:RestServiceStructure$RootNode" />
+        </path>
+        <path>
+          <item name="Found 1 services " type="fcff1e1b:RestServiceStructure$RootNode" />
+          <item name="dingtalk-robot-logback-demo" type="c588b436:RestServiceStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -173,7 +193,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618638886897</updated>
       <workItem from="1618638891648" duration="24972000" />
-      <workItem from="1618672295513" duration="41981000" />
+      <workItem from="1618672295513" duration="45714000" />
     </task>
     <task id="LOCAL-00001" summary="logback append 钉钉高级 简单支持">
       <created>1618678520341</created>
@@ -385,7 +405,42 @@
       <option name="project" value="LOCAL" />
       <updated>1618766261527</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="add idea project file">
+      <created>1618836972777</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1618836972777</updated>
+    </task>
+    <task id="LOCAL-00032" summary="remove file">
+      <created>1618837333376</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1618837333376</updated>
+    </task>
+    <task id="LOCAL-00033" summary="add file">
+      <created>1618837469430</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1618837469430</updated>
+    </task>
+    <task id="LOCAL-00034" summary="增加相关默认信息配置 增加基础include and custom-layout">
+      <created>1618840043661</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1618840043661</updated>
+    </task>
+    <task id="LOCAL-00035" summary="曾加pattern layout的 默认配置">
+      <created>1618840595910</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1618840595910</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -422,7 +477,12 @@
     <MESSAGE value="add include dingtalk xml" />
     <MESSAGE value="add example" />
     <MESSAGE value="file not include" />
-    <option name="LAST_COMMIT_MESSAGE" value="file not include" />
+    <MESSAGE value="add idea project file" />
+    <MESSAGE value="remove file" />
+    <MESSAGE value="add file" />
+    <MESSAGE value="增加相关默认信息配置 增加基础include and custom-layout" />
+    <MESSAGE value="曾加pattern layout的 默认配置" />
+    <option name="LAST_COMMIT_MESSAGE" value="曾加pattern layout的 默认配置" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -441,11 +501,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/listener/LoggerStartupListener.java</url>
           <line>61</line>
           <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/java/com/github/wangji92/logbackappenddemo/controller/TestController.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

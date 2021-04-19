@@ -3,7 +3,7 @@
     <!-- 定义日志文件 输出位置 -->
     <property name="log_dir" value="~/log/"/>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk.xml"/>
+    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-custom-layout.xml"/>
 
     <!-- ConsoleAppender 控制台输出日志 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -18,6 +18,6 @@
         <level value="info"/>
         <!-- 控制台输出 -->
         <appender-ref ref="console"/>
-        <appender-ref ref="asyncDingtalkPatternLayoutEncoder"/>
+        <appender-ref ref="asyncDingTalkCustomLayoutAppend"/>
     </root>
 </configuration>
