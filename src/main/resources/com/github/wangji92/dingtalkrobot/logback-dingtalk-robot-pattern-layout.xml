@@ -10,25 +10,24 @@
                 If the property with key "k" is undefined, the property method will return the empty string and not null.
                This avoids the need to check for null values.-->
         <then>
-            <!--自定义layout的效果-->
-            <appender name="dingTalkCustomLayoutAppend"
+            <!--    通过logback PatternLayoutEncoder 定义 markdown 格式-->
+            <appender name="dingtalkPatternLayoutEncoderAppend"
                       class="com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend">
                 <webhook>${dingTalkRobotWebhook}</webhook>
                 <signSecret>${dingTalkRobotSignSecret}</signSecret>
                 <robotTitle>${dingTalkRobotTitle}</robotTitle>
-                <layout class="com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout">
-                    <env>${env}</env>
-                    <app>${app}</app>
-                    <clickDescription>${dingTalkQuickLinkClickDescription}</clickDescription>
-                    <clickUrl>${dingTalkQuickLinkClickUrl}</clickUrl>
-                </layout>
+                <!--                不要随便格式化 很危险-->
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <pattern>- env: ${env}%n- app: ${app}%n- ip: ${localIp}%n- time: %d{yyyy-MM-dd HH:mm:ss.SSS}%n- thread: %thread%n- level: %level%n- logger: %logger%n- class: %class%n- method: %method%n- line: %line%n- mdc: %mdc%n- message: %msg%n- stackTrace %ex{5}%n</pattern>
+                    <charset>UTF-8</charset>
+                </encoder>
             </appender>
             <!--自定义layout的效果+ AsyncAppender-->
-            <appender name="asyncDingTalkCustomLayoutAppend" class="ch.qos.logback.classic.AsyncAppender">
+            <appender name="asyncDingtalkPatternLayoutEncoderAppend" class="ch.qos.logback.classic.AsyncAppender">
                 <includeCallerData>${asyncAppenderIncludeCallerData:-true}</includeCallerData>
                 <queueSize>${asyncAppenderQueueSize:-256}</queueSize>
                 <neverBlock>${asyncAppenderNeverBlock:-true}</neverBlock>
-                <appender-ref ref="dingtalkCustom"/>
+                <appender-ref ref="dingtalkPatternLayoutEncoderAppend"/>
                 <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
                     <level>${dingTalkLogLevel:-ERROR}</level>
                 </filter>
