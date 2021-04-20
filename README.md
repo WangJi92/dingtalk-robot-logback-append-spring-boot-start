@@ -112,6 +112,14 @@ spring.dingtalk.logback.append.log-config.kew-word-expression=return  formattedM
 
 ### 3.3 手动配置xml
 [com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml](https://github.com/WangJi92/dingtalk-robot-logback-append-spring-boot-start/blob/master/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml)
+这个是基础配置的引入logback 中使用 这里采用使用 扩展logback 提供的 springProperty 标签注入logback 属性
+先引入基础 然后引入具体的 layout ，可以在中间 修改基础引入的熟悉 比如 DINGTALK_ROBOT_LOG_PATTERN 这个熟悉 修改一下 ch.qos.logback.classic.encoder.PatternLayoutEncoder
+中使用的日志的模板，使用 CBT_CONVERT_DINGTALK_ROBOT_LOG_PATTERN 进行替换。
+
+```xml
+ <springProperty scope="context" name="dingTalkRobotSignSecret"
+                    source="spring.dingtalk.logback.append.robot-config.sign-secret" defaultValue=""/>
+```
 
 #### 3.3.1  pattern layout 定义的格式
 [com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-pattern-layout.xml](https://github.com/WangJi92/dingtalk-robot-logback-append-spring-boot-start/blob/master/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-pattern-layout.xml)
@@ -147,7 +155,9 @@ spring.dingtalk.logback.append.log-config.kew-word-expression=return  formattedM
 </configuration>
 ```
 #### 3.3.2  手动编程定义的格式 [学习自己玩一下]
+
 [com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-custom-layout.xml](https://github.com/WangJi92/dingtalk-robot-logback-append-spring-boot-start/blob/master/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-custom-layout.xml)
+
 com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -179,5 +189,7 @@ com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout
     </root>
 </configuration>
 ```
+### 4、logback 的一些 学习
 
+[logback append 开发过程中了解的总结](LOGBACK_README.md)
 
