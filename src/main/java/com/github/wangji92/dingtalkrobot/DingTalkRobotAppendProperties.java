@@ -123,6 +123,11 @@ public class DingTalkRobotAppendProperties {
          * 钉钉发送消息头
          */
         private String robotTitle = "钉钉日志告警通知";
+
+        /**
+         * 机器人发送速度限制 [每分钟最多20次] 1/3.5~= 0.2857
+         */
+        private Double rateLimiterPermitsPerSecond = 0.2857;
     }
 
     /**

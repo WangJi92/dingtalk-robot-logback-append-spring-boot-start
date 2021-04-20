@@ -15,6 +15,7 @@
                 <webhook>${dingTalkRobotWebhook}</webhook>
                 <signSecret>${dingTalkRobotSignSecret}</signSecret>
                 <robotTitle>${dingTalkRobotTitle}</robotTitle>
+                <rateLimiterPermitsPerSecond>${dingTalkRateLimiterPermitsPerSecond:-0.2875}</rateLimiterPermitsPerSecond>
                 <layout class="com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout">
                     <env>${env}</env>
                     <app>${app}</app>

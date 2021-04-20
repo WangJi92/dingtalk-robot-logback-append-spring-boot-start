@@ -35,14 +35,22 @@ public class DingTalkRobotSender {
     private String signSecret;
 
     /**
+     * 发送速率 [每分钟最多20次] 1/3.5~= 0.2857
+     */
+    private Double rateLimiterPermitsPerSecond = 0.2857;
+
+    /**
      * 每个机器人每分钟最多发送20条
      */
     private RateLimiter rateLimiter = null;
 
-    public DingTalkRobotSender(String webhook, String signSecret) {
+    public DingTalkRobotSender(String webhook, String signSecret, Double rateLimiterPermitsPerSecond) {
         this.webhook = webhook;
         this.signSecret = signSecret;
-        rateLimiter = RateLimiter.create(1 / 3.5);
+        if (rateLimiterPermitsPerSecond == null) {
+            rateLimiterPermitsPerSecond = 0.2857;
+        }
+        rateLimiter = RateLimiter.create(rateLimiterPermitsPerSecond);
     }
 
     /**

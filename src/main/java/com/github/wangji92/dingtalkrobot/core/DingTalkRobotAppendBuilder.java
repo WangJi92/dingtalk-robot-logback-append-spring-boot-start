@@ -42,6 +42,7 @@ public class DingTalkRobotAppendBuilder {
         DingTalkRobotAppendProperties.DingTalkRobot robot = dingTalkRobotAppendProperties.getRobotConfig();
         dingTalkRobotAppend.setWebhook(robot.getWebhook());
         dingTalkRobotAppend.setSignSecret(robot.getSignSecret());
+        dingTalkRobotAppend.setRateLimiterPermitsPerSecond(dingTalkRobotAppendProperties.getRobotConfig().getRateLimiterPermitsPerSecond());
         String title = robot.getRobotTitle();
         if (!StringUtils.hasText(title)) {
             title = "钉钉日志告警通知";

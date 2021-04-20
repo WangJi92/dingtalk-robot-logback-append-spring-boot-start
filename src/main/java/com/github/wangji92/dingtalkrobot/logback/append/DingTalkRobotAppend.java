@@ -33,6 +33,11 @@ public class DingTalkRobotAppend extends UnsynchronizedAppenderBase<ILoggingEven
     private String robotTitle;
 
     /**
+     * 发送速率 [每分钟最多20次] 1/3.5~= 0.2857
+     */
+    private Double rateLimiterPermitsPerSecond = 0.2857;
+
+    /**
      * 定义 layout 处理器 Encode
      *
      * @see PatternLayoutEncoder
@@ -73,7 +78,7 @@ public class DingTalkRobotAppend extends UnsynchronizedAppenderBase<ILoggingEven
     @Override
     public void start() {
         if (webhook != null && webhook.length() > 0) {
-            dingTalkRobotSender = new DingTalkRobotSender(webhook, signSecret);
+            dingTalkRobotSender = new DingTalkRobotSender(webhook, signSecret,rateLimiterPermitsPerSecond);
             super.start();
         }
     }
@@ -106,6 +111,14 @@ public class DingTalkRobotAppend extends UnsynchronizedAppenderBase<ILoggingEven
         customLayoutEncoder.setContext(context);
         this.encoder = customLayoutEncoder;
 
+    }
+
+    public Double getRateLimiterPermitsPerSecond() {
+        return rateLimiterPermitsPerSecond;
+    }
+
+    public void setRateLimiterPermitsPerSecond(Double rateLimiterPermitsPerSecond) {
+        this.rateLimiterPermitsPerSecond = rateLimiterPermitsPerSecond;
     }
 
     public Encoder<ILoggingEvent> getEncoder() {
