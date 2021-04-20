@@ -85,7 +85,6 @@ spring.dingtalk.logback.append.quick-link-config.click-description=点击查看�
 ## 发现问题一键进入服务器、k8s集群的链接地址
 ## localIp 为logback 中定义的属性 目前已经有了 hostname、localIp、app 等等关键字
 ## 发现问题一键进入服务器、k8s集群的链接地址
-## 发现问题一键进入服务器、k8s集群的链接地址
 spring.dingtalk.logback.append.quick-link-config.click-url=https://kaifa.baidu.com/searchPage?w=[localIp]
 
 ```
