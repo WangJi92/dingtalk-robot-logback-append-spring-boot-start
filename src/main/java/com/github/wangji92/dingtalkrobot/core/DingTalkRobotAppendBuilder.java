@@ -4,6 +4,7 @@ import ch.qos.logback.classic.LoggerContext;
 import com.github.wangji92.dingtalkrobot.DingTalkRobotAppendProperties;
 import com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend;
 import com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout;
+import com.github.wangji92.dingtalkrobot.logback.pattern.CenterBracketsTemplateConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
@@ -98,6 +99,7 @@ public class DingTalkRobotAppendBuilder {
         if (quickLink != null && StringUtils.hasText(quickLink.getClickDescription())) {
             layout.setClickDescription(quickLink.getClickDescription());
             if (StringUtils.hasText(quickLink.getClickUrl()) && quickLink.getClickUrl().contains(HTTP)) {
+
                 layout.setClickUrl(quickLink.getClickUrl());
             }
         }

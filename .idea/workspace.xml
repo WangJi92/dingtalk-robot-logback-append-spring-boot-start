@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0361c160-e9fe-406c-9833-e88e6acb37a8" name="Default Changelist" comment="fix">
+    <list default="true" id="0361c160-e9fe-406c-9833-e88e6acb37a8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/java/com/github/wangji92/logbackappenddemo/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/java/com/github/wangji92/logbackappenddemo/controller/TestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/logback-dingtalk-pattern-layout-append.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/logback-dingtalk-pattern-layout-append.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/DingTalkRobotAppendProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/DingTalkRobotAppendProperties.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/core/DingTalkRobotAppendBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/core/DingTalkRobotAppendBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/core/DingTalkRobotSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/core/DingTalkRobotSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/append/DingTalkRobotAppend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/append/DingTalkRobotAppend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/layout/DingTalkRobotLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/layout/DingTalkRobotLayout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/pattern/LinkDetailConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/pattern/CenterBracketsTemplateConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-custom-layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-custom-layout.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -104,12 +105,38 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.DingtalkRobotLogbackDemoApplication">
+    <configuration name="CenterBracketsTemplateConverter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.wangji92.dingtalkrobot.logback.pattern.CenterBracketsTemplateConverter" />
+      <module name="dingtalk-robot-logback-append-spring-boot-start" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.wangji92.dingtalkrobot.logback.pattern.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DingTalkRobotLayout" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout" />
       <module name="dingtalk-robot-logback-append-spring-boot-start" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.github.wangji92.dingtalkrobot.logback.layout.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.wangji92.logbackappenddemo.controller.TestController" />
+      <module name="dingtalk-robot-logback-demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.wangji92.logbackappenddemo.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -180,6 +207,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TestController" />
+        <item itemvalue="Application.CenterBracketsTemplateConverter" />
         <item itemvalue="Application.DingTalkRobotLayout" />
       </list>
     </recent_temporary>
@@ -198,7 +227,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618638886897</updated>
       <workItem from="1618638891648" duration="24972000" />
-      <workItem from="1618672295513" duration="60339000" />
+      <workItem from="1618672295513" duration="63546000" />
     </task>
     <task id="LOCAL-00001" summary="logback append 钉钉高级 简单支持">
       <created>1618678520341</created>
@@ -487,7 +516,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618926225747</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="增加 发送速度配置">
+      <created>1618927603936</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1618927603936</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -515,7 +551,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix name too long" />
     <MESSAGE value="quick link fix code" />
     <MESSAGE value="log change to sout" />
     <MESSAGE value="extra method" />
@@ -540,7 +575,8 @@
     <MESSAGE value="fix 修改demo 配置" />
     <MESSAGE value="fix 修改配置" />
     <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+    <MESSAGE value="增加 发送速度配置" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加 发送速度配置" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -561,14 +597,24 @@
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/pattern/LinkDetailConverter.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="24" />
+          <url>file://$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/java/com/github/wangji92/logbackappenddemo/controller/TestController.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/pattern/LinkDetailConverter.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="25" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/pattern/CenterBracketsTemplateConverter.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/layout/DingTalkRobotLayout.java</url>
+          <line>116</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/layout/DingTalkRobotLayout.java</url>
+          <line>115</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

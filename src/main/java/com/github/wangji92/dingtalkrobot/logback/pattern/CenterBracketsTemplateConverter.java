@@ -1,9 +1,8 @@
 package com.github.wangji92.dingtalkrobot.logback.pattern;
 
 import ch.qos.logback.classic.pattern.ClassicConverter;
-import ch.qos.logback.classic.pattern.PropertyConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import com.google.common.collect.Lists;
+import ch.qos.logback.core.Context;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
@@ -12,57 +11,50 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 字符串拼接起来 https://blog.csdn.net/WuLex/article/details/82116701
+ * 中括号中变量处理  比如 https://kaifa.baidu.com/searchPage?w=[localIp]
+ * https://blog.csdn.net/WuLex/article/details/82116701
+ * https://xie.infoq.cn/article/73d2aa78bac23f1bd2731ed23
  *
  * @author 汪小哥
  * @date 19-04-2021
  */
-public class LinkDetailConverter extends ClassicConverter {
+public class CenterBracketsTemplateConverter extends ClassicConverter {
 
-    private static final String REGEX = "(?<=\\[)([a-zA-Z]*)(?=])";
+    private static final String REGEX = "(?<=\\[)([a-zA-Z0-9]*)(?=\\])";
 
-
-    @Override
-    public void start() {
-        super.start();
-
-
-    }
-
-    @Override
-    public boolean isStarted() {
-        return super.isStarted();
-    }
-
-    private PropertyConverter propertyConverter = new PropertyConverter();
-
+    /**
+     * 缓存值 第一次处理即可
+     */
+    private String convertContentCache = "";
 
     @Override
     public String convert(ILoggingEvent event) {
+        if (StringUtils.hasText(convertContentCache)) {
+            return convertContentCache;
+        }
+
         if (getFirstOption() == null) {
             return "";
         }
         String firstOption = getFirstOption();
-        Map<String, String> propertyMap = event.getLoggerContextVO().getPropertyMap();
+        Context context = getContext();
         Pattern compile = Pattern.compile(REGEX);
         Matcher matcher = compile.matcher(getFirstOption());
         Map<String, String> map = new HashMap<>(3);
         while (matcher.find()) {
-            for (int i1 = 1; i1 <= matcher.groupCount(); i1++) {
-                propertyConverter.setOptionList(Lists.newArrayList(matcher.group(i1)));
-                String convert = propertyConverter.convert(event);
-                if (StringUtils.hasText(convert)) {
-                    map.put(matcher.group(i1), convert);
+            for (int index = 1; index <= matcher.groupCount(); index++) {
+                String propertyValue = context.getProperty(matcher.group(index));
+                if (StringUtils.hasText(propertyValue)) {
+                    map.put(matcher.group(index), propertyValue);
                 }
             }
         }
         for (Map.Entry<String, String> keyValue : map.entrySet()) {
             firstOption = firstOption.replace("[" + keyValue.getKey() + "]", keyValue.getValue());
         }
+        convertContentCache = firstOption;
         return firstOption;
     }
-
-
 
 
 }

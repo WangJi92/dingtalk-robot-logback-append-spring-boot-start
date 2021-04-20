@@ -4,13 +4,12 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml"/>
 
-<!--    <property name="DINGTALK_ROBOT_LOG_PATTERN" value="\- \\(${dingTalkQuickLinkClickUrl}\\)%n"/>-->
-
-<!--    <property scope="context" name="dingTalkQuickLinkClickUrl" value="https://www.baidu.com?{hostname}}"/>-->
+    <!--    layout 的格式 替换默认的 这里使用 spring.dingtalk.logback.append.quick-link-config.click-url=https://kaifa.baidu.com/searchPage?w=[localIp] 动态的配置 可以跟进需求 修改为hostname、app 等等变量-->
+    <property name="DINGTALK_ROBOT_LOG_PATTERN" value="${CBT_CONVERT_DINGTALK_ROBOT_LOG_PATTERN}"/>
+    <!--    替换掉默认的DINGTALK_ROBOT_LOG_PATTERN，没有打印 链接详情的那个-->
 
     <!--    钉钉机器人告警处理 使用pattern layout -->
     <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-pattern-layout.xml"/>
-
 
 
     <!-- ConsoleAppender 控制台输出日志 -->

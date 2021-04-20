@@ -3,8 +3,9 @@
     <!--    当前配置给予参考 复制到自己的项目里面去-->
     <contextListener class="com.github.wangji92.dingtalkrobot.logback.listener.LoggerStartupListener"/>
 
-    <conversionRule conversionWord="linkDetail"
-                    converterClass="com.github.wangji92.dingtalkrobot.logback.pattern.LinkDetailConverter"/>
+    <!--   [] [] 模板变量转换处理-->
+    <conversionRule conversionWord="cbt"
+                    converterClass="com.github.wangji92.dingtalkrobot.logback.pattern.CenterBracketsTemplateConverter"/>
     <!--    https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-custom-log-levels-->
     <springProperty scope="context" name="app" source="spring.application.name" defaultValue="not define name"/>
     <springProperty scope="context" name="env" source="spring.dingtalk.logback.append.application-config.env"
@@ -57,4 +58,18 @@
     <!--可以覆盖定义pattern () 要进行转义 http://logback.qos.ch/manual/layouts.html#Parentheses-->
     <property name="DINGTALK_ROBOT_LOG_PATTERN"
               value="${DINGTALK_ROBOT_LOG_PATTERN:-${DINGTALK_ROBOT_LOG_BASE_PATTERN}}"/>
+
+    <!--    你应该需要配置一个链接详情 cbt 帮你处理动态的属性  cbt=CenterBracketsTemplateConverter dingTalkQuickLinkClickUrl is https://kaifa.baidu.com/searchPage?w=[localIp] or [hostName] or [app]-->
+    <property name="CBT_CONVERT_DINGTALK_ROBOT_LOG_PATTERN"
+              value="${DINGTALK_ROBOT_LOG_BASE_PATTERN}- ${dingTalkQuickLinkClickDescription}: [%cbt{${dingTalkQuickLinkClickUrl}}]\\(%cbt{${dingTalkQuickLinkClickUrl}}\\)%n"/>
+    <!--    你需要在最外面覆盖 DINGTALK_ROBOT_LOG_PATTERN use CBT_CONVERT_DINGTALK_ROBOT_LOG_PATTERN like next line -->
+    <!--    <property name="DINGTALK_ROBOT_LOG_PATTERN" value="${CBT_CONVERT_DINGTALK_ROBOT_LOG_PATTERN}"/>-->
+
+
+
+    <!--    下面这个直接写死的 hostname 不推荐 -->
+    <property name="HOST_NAME_DINGTALK_ROBOT_LOG_PATTERN"
+              value="${DINGTALK_ROBOT_LOG_BASE_PATTERN}- ${dingTalkQuickLinkClickDescription}:[${dingTalkQuickLinkClickUrl}${hostname}]\\(${dingTalkQuickLinkClickUrl}${hostname}\\)%n"/>
+
+
 </included>

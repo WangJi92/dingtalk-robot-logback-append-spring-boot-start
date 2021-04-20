@@ -141,7 +141,7 @@ public class DingTalkRobotAppendProperties {
         private String clickDescription = "点击查看详情";
         /**
          * 支持变量 ip 或者 app (应用名称)
-         * https://kaifa.baidu.com/searchPage?wd={ip}
+         * https://kaifa.baidu.com/searchPage?wd=[localIp] or [hostname] or other 属性
          */
         private String clickUrl;
     }

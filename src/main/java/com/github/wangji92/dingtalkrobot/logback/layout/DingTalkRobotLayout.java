@@ -8,6 +8,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.IThrowableProxy;
 import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.LayoutBase;
+import com.github.wangji92.dingtalkrobot.logback.pattern.CenterBracketsTemplateConverter;
 import com.github.wangji92.dingtalkrobot.utils.IpUtils;
 import com.google.common.collect.Lists;
 import org.springframework.util.StringUtils;
@@ -53,6 +54,11 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
         throwableProxyConverter.setOptionList(Lists.newArrayList("5"));
         throwableProxyConverter.start();
         ip = IpUtils.getIpAddress();
+
+        //处理动态的属性 https://kaifa.baidu.com/searchPage?wd=[localIp]  链接中的动态变量
+        centerBracketsTemplateConverter.setOptionList(Lists.newArrayList(clickUrl));
+        centerBracketsTemplateConverter.setContext(getContext());
+        centerBracketsTemplateConverter.start();
         super.start();
     }
 
@@ -67,6 +73,7 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
     private MethodOfCallerConverter methodOfCallerConverter = new MethodOfCallerConverter();
     private ClassOfCallerConverter classOfCallerConverter = new ClassOfCallerConverter();
     private ThrowableProxyConverter throwableProxyConverter = new ThrowableProxyConverter();
+    private CenterBracketsTemplateConverter centerBracketsTemplateConverter = new CenterBracketsTemplateConverter();
 
     @Override
     public String doLayout(ILoggingEvent event) {
@@ -106,14 +113,7 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
 
         //增加快捷链接
         if (StringUtils.hasText(clickDescription) && StringUtils.hasText(clickUrl)) {
-            String clickUrlDetail = clickUrl;
-            if (clickUrlDetail.contains("{ip}")) {
-                clickUrlDetail = clickUrl.replaceAll("\\{ip}", ip);
-
-            }
-            if (clickUrlDetail.contains("{app}")) {
-                clickUrlDetail = clickUrl.replaceAll("\\{app}", app);
-            }
+            String clickUrlDetail = centerBracketsTemplateConverter.convert(event);
             this.markdownTextAppendUrl(sb, clickDescription, clickUrlDetail, clickUrlDetail);
         }
         return sb.toString();
@@ -127,7 +127,9 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
      * @param value
      */
     private void markdownTextAppend(StringBuilder sb, String key, String value) {
-        sb.append("- ").append(key).append(": ").append(value).append("\n");
+        if(StringUtils.hasText(value)){
+            sb.append("- ").append(key).append(": ").append(value).append("\n");
+        }
     }
 
     /**
