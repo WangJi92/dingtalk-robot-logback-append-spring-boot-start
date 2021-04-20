@@ -2,21 +2,23 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="true">
     <!--    spring 默认的-->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml"/>
 
-    <!--    <property name="DINGTALK_ROBOT_LOG_PATTERN" value="\- \\(${dingTalkQuickLinkClickUrl}\\)%n"/>-->
-
+    <!--    基础和 logback-dingtalk-robot-pattern-layout 分开是为了方便 替换DINGTALK_ROBOT_LOG_PATTERN 变量-->
     <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml"/>
 
     <!--    覆盖默认的layout 增加 点击详情 详情使用 hostname、localIp、app 等等参数 作为参数-->
     <!--    可以覆盖定义pattern () 要进行转义 http://logback.qos.ch/manual/layouts.html#Parentheses-->
     <!--    当然这里使用 dingTalkQuickLinkClickUrl 属性参数，这里链接地址markdown 格式 []() -->
-    <!--    最土的方法 直接写死 [链接地址]\\(https://kaifa.baidu.com/searchPage?w=${localIp}\\)-->
-    <property name="DINGTALK_ROBOT_LOG_PATTERN"  value="${DINGTALK_ROBOT_LOG_BASE_PATTERN}- ${dingTalkQuickLinkClickDescription}:[${dingTalkQuickLinkClickUrl}${hostname}]\\(${dingTalkQuickLinkClickUrl}${hostname}\\)%n"/>
+    <!--    layout 的格式 替换默认的 这里使用 spring.dingtalk.logback.append.quick-link-config.click-url=https://kaifa.baidu.com/searchPage?w=[localIp] 动态的配置 可以跟进需求 修改为hostname、app 等等变量-->
+    <property name="DINGTALK_ROBOT_LOG_PATTERN" value="${CBT_CONVERT_DINGTALK_ROBOT_LOG_PATTERN}"/>
+    <!--    替换掉默认的DINGTALK_ROBOT_LOG_PATTERN，没有打印 链接详情的那个-->
+
+    <!--    这里是思路是直接使用拼接的方式-->
+    <!--    <property name="DINGTALK_ROBOT_LOG_PATTERN"-->
+    <!--              value="${DINGTALK_ROBOT_LOG_BASE_PATTERN}- ${dingTalkQuickLinkClickDescription}:[${dingTalkQuickLinkClickUrl}${hostname}]\\(${dingTalkQuickLinkClickUrl}${hostname}\\)%n"/>-->
 
     <!--    钉钉机器人告警处理 使用pattern layout -->
     <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-pattern-layout.xml"/>
-
 
 
     <!-- ConsoleAppender 控制台输出日志 -->
