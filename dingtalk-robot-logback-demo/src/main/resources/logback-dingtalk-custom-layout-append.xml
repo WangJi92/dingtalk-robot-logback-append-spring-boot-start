@@ -2,6 +2,9 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="true">
     <!--    spring 默认的-->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml"/>
+
     <!--    钉钉机器人告警处理 使用自定义的layout 可以了解一下 如何处理的 推荐使用 pattern-layout 更加灵活-->
     <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-custom-layout.xml"/>
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <!--    spring 默认的-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml"/>
+
+    <!--    <property name="DINGTALK_ROBOT_LOG_PATTERN" value="\- \\(${dingTalkQuickLinkClickUrl}\\)%n"/>-->
+
+    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml"/>
+
+    <!--    覆盖默认的layout 增加 点击详情 详情使用 hostname、localIp、app 等等参数 作为参数-->
+    <!--    可以覆盖定义pattern () 要进行转义 http://logback.qos.ch/manual/layouts.html#Parentheses-->
+    <!--    当然这里使用 dingTalkQuickLinkClickUrl 属性参数，这里链接地址markdown 格式 []() -->
+    <!--    最土的方法 直接写死 [链接地址]\\(https://kaifa.baidu.com/searchPage?w=${localIp}\\)-->
+    <property name="DINGTALK_ROBOT_LOG_PATTERN"  value="${DINGTALK_ROBOT_LOG_BASE_PATTERN}- ${dingTalkQuickLinkClickDescription}:[${dingTalkQuickLinkClickUrl}${hostname}]\\(${dingTalkQuickLinkClickUrl}${hostname}\\)%n"/>
+
+    <!--    钉钉机器人告警处理 使用pattern layout -->
+    <include resource="com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-pattern-layout.xml"/>
+
+
+
+    <!-- ConsoleAppender 控制台输出日志 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root>
+        <level value="info"/>
+        <!-- 控制台输出 -->
+        <appender-ref ref="console"/>
+        <!--        钉钉告警处理输出-->
+        <appender-ref ref="asyncDingtalkPatternLayoutEncoderAppend"/>
+    </root>
+</configuration>

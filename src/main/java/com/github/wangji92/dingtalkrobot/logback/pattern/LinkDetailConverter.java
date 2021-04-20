@@ -18,8 +18,21 @@ import java.util.regex.Pattern;
  * @date 19-04-2021
  */
 public class LinkDetailConverter extends ClassicConverter {
-    String REGEX = "\\[[^]\\]+]";
 
+    private static final String REGEX = "(?<=\\[)([a-zA-Z]*)(?=])";
+
+
+    @Override
+    public void start() {
+        super.start();
+
+
+    }
+
+    @Override
+    public boolean isStarted() {
+        return super.isStarted();
+    }
 
     private PropertyConverter propertyConverter = new PropertyConverter();
 
@@ -36,7 +49,7 @@ public class LinkDetailConverter extends ClassicConverter {
         Map<String, String> map = new HashMap<>(3);
         while (matcher.find()) {
             for (int i1 = 1; i1 <= matcher.groupCount(); i1++) {
-                propertyConverter.setOptionList(Lists.newArrayList(propertyMap.get(matcher.group(i1))));
+                propertyConverter.setOptionList(Lists.newArrayList(matcher.group(i1)));
                 String convert = propertyConverter.convert(event);
                 if (StringUtils.hasText(convert)) {
                     map.put(matcher.group(i1), convert);
@@ -44,10 +57,12 @@ public class LinkDetailConverter extends ClassicConverter {
             }
         }
         for (Map.Entry<String, String> keyValue : map.entrySet()) {
-            firstOption = firstOption.replace("{" + keyValue.getKey() + "}", keyValue.getValue());
+            firstOption = firstOption.replace("[" + keyValue.getKey() + "]", keyValue.getValue());
         }
         return firstOption;
     }
+
+
 
 
 }
