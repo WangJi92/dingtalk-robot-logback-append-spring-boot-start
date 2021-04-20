@@ -20,7 +20,6 @@ public class DingTalkRobotAppendBuilder {
 
     private static final String HTTP = "http";
 
-
     private DingTalkRobotAppendProperties dingTalkRobotAppendProperties;
 
     private ApplicationContext applicationContext;
@@ -104,11 +103,11 @@ public class DingTalkRobotAppendBuilder {
         return layout;
     }
 
-    public DingTalkRobotAppendProperties getdingTalkRobotAppendProperties() {
+    public DingTalkRobotAppendProperties getDingTalkRobotAppendProperties() {
         return dingTalkRobotAppendProperties;
     }
 
-    public void setdingTalkRobotAppendProperties(DingTalkRobotAppendProperties dingTalkRobotAppendProperties) {
+    public void setDingTalkRobotAppendProperties(DingTalkRobotAppendProperties dingTalkRobotAppendProperties) {
         this.dingTalkRobotAppendProperties = dingTalkRobotAppendProperties;
     }
 
