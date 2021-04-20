@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0361c160-e9fe-406c-9833-e88e6acb37a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/example/logback-dingtalk-robot-example.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/example/logback-dingtalk-robot-example.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dingtalk-robot-logback-demo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dingtalk-robot-logback-demo/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -219,7 +223,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618638886897</updated>
       <workItem from="1618638891648" duration="24972000" />
-      <workItem from="1618672295513" duration="65780000" />
+      <workItem from="1618672295513" duration="67407000" />
     </task>
     <task id="LOCAL-00001" summary="logback append 钉钉高级 简单支持">
       <created>1618678520341</created>
@@ -543,7 +547,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618932752031</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="修改例子">
+      <created>1618932973265</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1618932973265</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -571,7 +582,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Code adjustment" />
     <MESSAGE value="add async appender config and move build dingtalk append to bootstrap class" />
     <MESSAGE value="Add the ability of user-defined expression and multiple keywords" />
     <MESSAGE value="fix name" />
@@ -596,7 +606,8 @@
     <MESSAGE value="关闭" />
     <MESSAGE value="edit" />
     <MESSAGE value="自动注入逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="自动注入逻辑" />
+    <MESSAGE value="修改例子" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改例子" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
