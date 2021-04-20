@@ -23,7 +23,7 @@ public class DingTalkRobotAppendProperties {
     /**
      * 是否启用
      */
-    private boolean enable = true;
+    private boolean enable = false;
     /**
      * 钉钉机器人的配置
      */
