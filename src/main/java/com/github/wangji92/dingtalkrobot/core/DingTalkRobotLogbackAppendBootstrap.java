@@ -10,6 +10,7 @@ import ch.qos.logback.core.filter.EvaluatorFilter;
 import ch.qos.logback.core.spi.FilterReply;
 import com.github.wangji92.dingtalkrobot.DingTalkRobotAppendProperties;
 import com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend;
+import com.github.wangji92.dingtalkrobot.logback.property.LocalIpDefiner;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.LoggerFactory;
@@ -42,11 +43,17 @@ public class DingTalkRobotLogbackAppendBootstrap {
     @Autowired
     private ApplicationContext applicationContext;
 
+    /**
+     * 编程方式没有注入 手动注入
+     */
+    private LocalIpDefiner localIpDefiner = new LocalIpDefiner();
 
     @PostConstruct
     public void init() {
         this.initLoggerContext();
         this.configCheck();
+
+        loggerContext.putProperty("localIp", localIpDefiner.getPropertyValue());
 
         DingTalkRobotAppend dingTalkRobotAppend = this.buildDingTalkRobotAppend();
 
@@ -182,17 +189,17 @@ public class DingTalkRobotLogbackAppendBootstrap {
     private EvaluatorFilter<ILoggingEvent> buildJaninoEvaluatorFilter() {
         DingTalkRobotAppendProperties.LogConfig logConfig = dingTalkRobotAppendProperties.getLogConfig();
         if (!CollectionUtils.isEmpty(logConfig.getLogKeyWords())) {
-            StringBuffer buffer = new StringBuffer("return ");
+            StringBuilder builder = new StringBuilder("return ");
             for (int index = 0; index < logConfig.getLogKeyWords().size(); index++) {
                 String keyword = logConfig.getLogKeyWords().get(index);
                 if (index != 0 && index != logConfig.getLogKeyWords().size()) {
-                    buffer.append(" || ");
+                    builder.append(" || ");
                 }
-                buffer.append(" formattedMessage.contains(\"").append(keyword).append("\")");
+                builder.append(" formattedMessage.contains(\"").append(keyword).append("\")");
 
             }
-            buffer.append(";");
-            return getEvaluatorFilter(buffer.toString());
+            builder.append(";");
+            return getEvaluatorFilter(builder.toString());
         } else if (StringUtils.hasText(logConfig.getKewWordExpression())) {
             return getEvaluatorFilter(logConfig.getKewWordExpression());
         }

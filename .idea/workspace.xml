@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0361c160-e9fe-406c-9833-e88e6acb37a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/DingTalkRobotAppendProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/DingTalkRobotAppendProperties.java" afterDir="false" />
+    <list default="true" id="0361c160-e9fe-406c-9833-e88e6acb37a8" name="Default Changelist" comment="fix">
+      <change afterPath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/logback-spring-autoconfig-dingtalk.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dingtalk-robot-logback-demo/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/core/DingTalkRobotLogbackAppendBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/core/DingTalkRobotLogbackAppendBootstrap.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -219,7 +222,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618638886897</updated>
       <workItem from="1618638891648" duration="24972000" />
-      <workItem from="1618672295513" duration="63837000" />
+      <workItem from="1618672295513" duration="65490000" />
     </task>
     <task id="LOCAL-00001" summary="logback append 钉钉高级 简单支持">
       <created>1618678520341</created>
@@ -522,7 +525,21 @@
       <option name="project" value="LOCAL" />
       <updated>1618930909539</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="关闭">
+      <created>1618931065348</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1618931065348</updated>
+    </task>
+    <task id="LOCAL-00045" summary="edit">
+      <created>1618931234207</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1618931234207</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -550,8 +567,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="log change to sout" />
-    <MESSAGE value="extra method" />
     <MESSAGE value="support JaninoEventEvaluator" />
     <MESSAGE value="Code adjustment" />
     <MESSAGE value="add async appender config and move build dingtalk append to bootstrap class" />
@@ -575,7 +590,9 @@
     <MESSAGE value="fix" />
     <MESSAGE value="增加 发送速度配置" />
     <MESSAGE value="增加 处理中括号 模板处理的逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加 处理中括号 模板处理的逻辑" />
+    <MESSAGE value="关闭" />
+    <MESSAGE value="edit" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -584,11 +601,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/DingTalkRobotAppendAutoConfiguration.java</url>
           <line>23</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/listener/LoggerStartupListener.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/listener/LoggerStartupListener.java</url>
@@ -606,14 +618,9 @@
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/layout/DingTalkRobotLayout.java</url>
-          <line>116</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/layout/DingTalkRobotLayout.java</url>
-          <line>115</line>
-          <option name="timeStamp" value="32" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/wangji92/dingtalkrobot/logback/listener/LoggerStartupListener.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
