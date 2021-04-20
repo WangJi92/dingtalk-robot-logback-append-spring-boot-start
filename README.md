@@ -6,6 +6,7 @@
 
 ## 3、使用
 ### 3.1 依赖 
+#### 3.1.1 外部依赖
 ```xml
 <guava-version>30.1.1-jre</guava-version>
 <alibaba-dingtalk-service-sdk-version>1.0.1</alibaba-dingtalk-service-sdk-version>
@@ -35,17 +36,23 @@
 
 .... logback的一些核心包 引入spring 基本上都有
 ```
-### 3.2 自动装配
-自动装配模式 不需要配置logback的xml通过编程的方式植入钉钉append。
+#### 3.1.2 start 包
+```xml
+<dependency>
+      <groupId>com.github.WangJi92</groupId>
+      <artifactId>dingtalk-robot-logback-append-spring-boot-start</artifactId>
+  </dependency>
 ```
-# 自动配置打开 
+### 3.2  相关配置信息 
+```properties
+# 自动配置打开  手动配置logback xml 引入关闭
 spring.dingtalk.logback.append.enable=true
 
 # 告警 应用相关配置 【应用名称 、当前环境】
 spring.dingtalk.logback.append.application-config.application-name=${spring.application.name}
 spring.dingtalk.logback.append.application-config.env=测试环境
 
-## 日志 通知范围配置 
+## 日志 通知范围配置 【自动配置必须】
 spring.dingtalk.logback.append.log-config.append-logger-names[0]=root
 
 ## 处理ERROR 日志 【必须配置】
@@ -53,6 +60,7 @@ spring.dingtalk.logback.append.log-config.log-level=ERROR
 
 ## 关键字过滤 两种方式 1、关键字 2、表达式 http://logback.qos.ch/manual/filters.html#EvaluatorFilter
 ## 可以都不配置 只处理loglevel 的过滤
+# 【自动配置支持关键字和表达式】 【手动配置仅支持表达式】
 #spring.dingtalk.logback.append.log-config.log-key-words[0]=dingding
 #spring.dingtalk.logback.append.log-config.log-key-words[1]=wangji
 spring.dingtalk.logback.append.log-config.kew-word-expression=return  formattedMessage.contains("dingding") ||  formattedMessage.contains("wangji");
@@ -75,12 +83,38 @@ spring.dingtalk.logback.append.quick-link-config.click-description=点击查看�
 
 ## 链接地址支持配置各种变量[localIp]、[hostname] 等等 https://kaifa.baidu.com/searchPage?w=[localIp]
 ## 发现问题一键进入服务器、k8s集群的链接地址
+## localIp 为logback 中定义的属性 目前已经有了 hostname、localIp、app 等等关键字
+## 发现问题一键进入服务器、k8s集群的链接地址
+## 发现问题一键进入服务器、k8s集群的链接地址
 spring.dingtalk.logback.append.quick-link-config.click-url=https://kaifa.baidu.com/searchPage?w=[localIp]
+
+```
+
+### 3.3 自动装配
+自动装配模式 不需要配置logback的xml通过编程的方式植入钉钉append。
+如下为自动配置特有属性
+
+```properties
+# 自动配置打开  手动配置logback xml 引入关闭
+spring.dingtalk.logback.append.enable=true
+## 日志 通知范围配置 【自动配置必须】
+spring.dingtalk.logback.append.log-config.append-logger-names[0]=root
+
+## 关键字过滤 两种方式 1、关键字 2、表达式 http://logback.qos.ch/manual/filters.html#EvaluatorFilter
+## 可以都不配置 只处理loglevel 的过滤
+# 【自动配置支持关键字和表达式】 【手动配置仅支持表达式】
+#spring.dingtalk.logback.append.log-config.log-key-words[0]=dingding
+#spring.dingtalk.logback.append.log-config.log-key-words[1]=wangji
+spring.dingtalk.logback.append.log-config.kew-word-expression=return  formattedMessage.contains("dingding") ||  formattedMessage.contains("wangji");
+
 ```
 
 
-### 3.2 手动配置xml
-#### 3.2.1  pattern layout 定义的格式
+### 3.3 手动配置xml
+[com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml](https://github.com/WangJi92/dingtalk-robot-logback-append-spring-boot-start/blob/master/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml)
+
+#### 3.3.1  pattern layout 定义的格式
+[com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-pattern-layout.xml](https://github.com/WangJi92/dingtalk-robot-logback-append-spring-boot-start/blob/master/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-pattern-layout.xml)
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="true">
@@ -112,7 +146,8 @@ spring.dingtalk.logback.append.quick-link-config.click-url=https://kaifa.baidu.c
     </root>
 </configuration>
 ```
-#### 3.2.2  手动编程定义的格式 [学习自己玩一下]
+#### 3.3.2  手动编程定义的格式 [学习自己玩一下]
+[com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-custom-layout.xml](https://github.com/WangJi92/dingtalk-robot-logback-append-spring-boot-start/blob/master/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-custom-layout.xml)
 com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
