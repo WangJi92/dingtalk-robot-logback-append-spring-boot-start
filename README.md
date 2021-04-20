@@ -107,6 +107,20 @@ spring.dingtalk.logback.append.log-config.append-logger-names[0]=root
 spring.dingtalk.logback.append.log-config.kew-word-expression=return  formattedMessage.contains("dingding") ||  formattedMessage.contains("wangji");
 
 ```
+如何理解 append-logger-names 就是将钉钉日志 添加到具体的哪个logger 中去
+```java
+private void addLoggerNameDingTalkRobotAppender(AsyncAppender asyncAppender) {
+       DingTalkRobotAppendProperties.LogConfig logConfig = dingTalkRobotAppendProperties.getLogConfig();
+       for (String loggerName : logConfig.getAppendLoggerNames()) {
+           Logger logger = loggerContext.getLogger(loggerName);
+           if (logger == null) {
+               log.warn("dingtalk alarm logger name ={} not found", loggerName);
+               continue;
+           }
+           logger.addAppender(asyncAppender);
+       }
+   }
+```
 
 
 ### 3.3 手动配置xml
