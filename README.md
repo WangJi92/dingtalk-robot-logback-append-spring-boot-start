@@ -125,9 +125,13 @@ private void addLoggerNameDingTalkRobotAppender(AsyncAppender asyncAppender) {
 
 ### 3.3 手动配置xml
 [com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml](https://github.com/WangJi92/dingtalk-robot-logback-append-spring-boot-start/blob/master/src/main/resources/com/github/wangji92/dingtalkrobot/logback-dingtalk-robot-base.xml)
-这个是基础配置的引入logback 中使用 这里采用使用 扩展logback 提供的 springProperty 标签注入logback 属性
-先引入基础 然后引入具体的 layout ，可以在中间 修改基础引入的熟悉 比如 DINGTALK_ROBOT_LOG_PATTERN 这个熟悉 修改一下 ch.qos.logback.classic.encoder.PatternLayoutEncoder
+这个是基础配置的属性logback 中使用, spring 扩展logback 提供的 springProperty 标签注入logback 属性
+先引入基础 然后引入具体的 layout ，可以在中间 修改基础引入的熟悉 比如 DINGTALK_ROBOT_LOG_PATTERN 这个属性 修改一下 ch.qos.logback.classic.encoder.PatternLayoutEncoder
 中使用的日志的模板，使用 CBT_CONVERT_DINGTALK_ROBOT_LOG_PATTERN 进行替换。
+
+[spring profile-specific-configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#profile-specific-configuration)
+[org/springframework/boot/logging/logback/defaults.xml](https://github.com/spring-projects/spring-boot/blob/v2.4.5/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml)
+
 
 ```xml
  <springProperty scope="context" name="dingTalkRobotSignSecret"
