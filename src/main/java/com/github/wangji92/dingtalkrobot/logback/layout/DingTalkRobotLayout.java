@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,6 +45,11 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
      * 快捷链接 后面追加ip
      */
     private String clickUrl;
+
+    /**
+     * 需要打印的mdc的信息
+     */
+    private List<String> mdcList = Lists.newArrayList();
 
     @Override
     public void start() {
@@ -87,13 +93,12 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
         this.markdownTextAppend(sb, "env", env);
         this.markdownTextAppend(sb, "app", app);
         this.markdownTextAppend(sb, "ip", ip);
-        this.markdownTextAppend(sb, "time", DATE_FORMAT_THREAD_LOCAL.get().format(event.getTimeStamp()));
         this.markdownTextAppend(sb, "thread", event.getThreadName());
         this.markdownTextAppend(sb, "level", event.getLevel().levelStr);
-        this.markdownTextAppend(sb, "logger", event.getLoggerName());
+//        this.markdownTextAppend(sb, "logger", event.getLoggerName());
 
-        String classConvert = classOfCallerConverter.convert(event);
-        this.markdownTextAppend(sb, "class", classConvert);
+//        String classConvert = classOfCallerConverter.convert(event);
+//        this.markdownTextAppend(sb, "class", classConvert);
 
         String method = methodOfCallerConverter.convert(event);
         this.markdownTextAppend(sb, "method", method);
@@ -127,7 +132,7 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
      * @param value
      */
     private void markdownTextAppend(StringBuilder sb, String key, String value) {
-        if(StringUtils.hasText(value)){
+        if (StringUtils.hasText(value)) {
             sb.append("- ").append(key).append(": ").append(value).append("\n");
         }
     }
@@ -154,7 +159,7 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
     private void mdcAppend(StringBuilder sb, ILoggingEvent event) {
         Map<String, String> mdcPropertyMap = event.getMDCPropertyMap();
         for (Map.Entry<String, String> entry : mdcPropertyMap.entrySet()) {
-            if (StringUtils.hasText(entry.getKey()) && StringUtils.hasText(entry.getValue())) {
+            if (StringUtils.hasText(entry.getKey()) && StringUtils.hasText(entry.getValue()) && mdcList.contains(entry.getKey())) {
                 this.markdownTextAppend(sb, entry.getKey(), entry.getValue());
             }
         }
@@ -190,5 +195,16 @@ public class DingTalkRobotLayout extends LayoutBase<ILoggingEvent> {
 
     public void setClickUrl(String clickUrl) {
         this.clickUrl = clickUrl;
+    }
+
+    public List<String> getMdcList() {
+        return mdcList;
+    }
+
+    public void setMdcList(List<String> mdcList) {
+        if (mdcList == null) {
+            return;
+        }
+        this.mdcList = mdcList;
     }
 }

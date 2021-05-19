@@ -58,18 +58,27 @@ public class DingTalkRobotLogbackAppendBootstrap {
         DingTalkRobotAppend dingTalkRobotAppend = this.buildDingTalkRobotAppend();
 
 
-        ThresholdFilter thresholdFilter = this.buildThresholdFilter();
-        EvaluatorFilter<ILoggingEvent> evaluatorFilter = this.buildJaninoEvaluatorFilter();
-
-
         AsyncAppender asyncAppender = this.buildAsyncAppender();
         asyncAppender.addAppender(dingTalkRobotAppend);
+        ThresholdFilter thresholdFilter = this.buildThresholdFilter();
         asyncAppender.addFilter(thresholdFilter);
 
-        if (evaluatorFilter != null) {
-            asyncAppender.addFilter(evaluatorFilter);
+        EvaluatorFilter<ILoggingEvent> excludeLogKeyWordMsgFilter = this.excludeLogKeyWordMsg();
+        if (excludeLogKeyWordMsgFilter != null) {
+            asyncAppender.addFilter(excludeLogKeyWordMsgFilter);
         }
-
+        EvaluatorFilter<ILoggingEvent> excludeLogNameFilter = this.excludeLogName();
+        if (excludeLogNameFilter != null) {
+            asyncAppender.addFilter(excludeLogNameFilter);
+        }
+        EvaluatorFilter<ILoggingEvent> includeLogKewWordMsg = this.includeLogKewWordMsg();
+        if (includeLogKewWordMsg != null) {
+            asyncAppender.addFilter(includeLogKewWordMsg);
+        }
+        EvaluatorFilter<ILoggingEvent> includeLogKeyWordExpression = this.includeLogKeyWordExpression();
+        if (includeLogKeyWordExpression != null) {
+            asyncAppender.addFilter(includeLogKeyWordExpression);
+        }
         this.addLoggerNameDingTalkRobotAppender(asyncAppender);
 
         asyncAppender.start();
@@ -186,22 +195,80 @@ public class DingTalkRobotLogbackAppendBootstrap {
      *
      * @return
      */
-    private EvaluatorFilter<ILoggingEvent> buildJaninoEvaluatorFilter() {
+    private EvaluatorFilter<ILoggingEvent> includeLogKeyWordExpression() {
         DingTalkRobotAppendProperties.LogConfig logConfig = dingTalkRobotAppendProperties.getLogConfig();
-        if (!CollectionUtils.isEmpty(logConfig.getLogKeyWords())) {
+        if (StringUtils.hasText(logConfig.getKewWordExpression())) {
+            return getEvaluatorFilter(logConfig.getKewWordExpression(), FilterReply.ACCEPT, FilterReply.DENY);
+        }
+        return null;
+    }
+
+    /**
+     * 包含关键字
+     *
+     * @return
+     */
+    private EvaluatorFilter<ILoggingEvent> includeLogKewWordMsg() {
+        DingTalkRobotAppendProperties.LogConfig logConfig = dingTalkRobotAppendProperties.getLogConfig();
+        if (!CollectionUtils.isEmpty(logConfig.getIncludeLogMessageKeyWords())) {
             StringBuilder builder = new StringBuilder("return ");
-            for (int index = 0; index < logConfig.getLogKeyWords().size(); index++) {
-                String keyword = logConfig.getLogKeyWords().get(index);
-                if (index != 0 && index != logConfig.getLogKeyWords().size()) {
+            for (int index = 0; index < logConfig.getIncludeLogMessageKeyWords().size(); index++) {
+                String keyword = logConfig.getIncludeLogMessageKeyWords().get(index);
+                if (index != 0 && index != logConfig.getIncludeLogMessageKeyWords().size()) {
                     builder.append(" || ");
                 }
                 builder.append(" formattedMessage.contains(\"").append(keyword).append("\")");
 
             }
             builder.append(";");
-            return getEvaluatorFilter(builder.toString());
-        } else if (StringUtils.hasText(logConfig.getKewWordExpression())) {
-            return getEvaluatorFilter(logConfig.getKewWordExpression());
+            return getEvaluatorFilter(builder.toString(), FilterReply.ACCEPT, FilterReply.DENY);
+        }
+        return null;
+    }
+
+    /**
+     * 排除 关键 loggerName 的告警
+     *
+     * @return
+     */
+    private EvaluatorFilter<ILoggingEvent> excludeLogName() {
+        DingTalkRobotAppendProperties.LogConfig logConfig = dingTalkRobotAppendProperties.getLogConfig();
+        if (!CollectionUtils.isEmpty(logConfig.getExcludeLogName())) {
+            StringBuilder builder = new StringBuilder("return ");
+            for (int index = 0; index < logConfig.getExcludeLogName().size(); index++) {
+                String keyword = logConfig.getExcludeLogName().get(index);
+                if (index != 0 && index != logConfig.getExcludeLogName().size()) {
+                    builder.append(" || ");
+                }
+                builder.append(" logger.contains(\"").append(keyword).append("\")");
+
+            }
+            builder.append(";");
+            return getEvaluatorFilter(builder.toString(), FilterReply.DENY, FilterReply.NEUTRAL);
+        }
+        return null;
+    }
+
+
+    /**
+     * 排除 关键 信息的告警
+     *
+     * @return
+     */
+    private EvaluatorFilter<ILoggingEvent> excludeLogKeyWordMsg() {
+        DingTalkRobotAppendProperties.LogConfig logConfig = dingTalkRobotAppendProperties.getLogConfig();
+        if (!CollectionUtils.isEmpty(logConfig.getExcludeLogMessageKeyWords())) {
+            StringBuilder builder = new StringBuilder("return ");
+            for (int index = 0; index < logConfig.getExcludeLogMessageKeyWords().size(); index++) {
+                String keyword = logConfig.getExcludeLogMessageKeyWords().get(index);
+                if (index != 0 && index != logConfig.getExcludeLogMessageKeyWords().size()) {
+                    builder.append(" || ");
+                }
+                builder.append(" formattedMessage.contains(\"").append(keyword).append("\")");
+
+            }
+            builder.append(";");
+            return getEvaluatorFilter(builder.toString(), FilterReply.DENY, FilterReply.NEUTRAL);
         }
         return null;
     }
@@ -214,7 +281,7 @@ public class DingTalkRobotLogbackAppendBootstrap {
      * @param expression
      * @return
      */
-    private EvaluatorFilter<ILoggingEvent> getEvaluatorFilter(String expression) {
+    private EvaluatorFilter<ILoggingEvent> getEvaluatorFilter(String expression, FilterReply onMatch, FilterReply onMismatch) {
         // 表达式实践  http://logback.qos.ch/manual/filters.html#EvaluatorFilter
         // 可以使用 event、message、logger、loggerContext、mdc、throwable、throwableProxy 等关键字
         EvaluatorFilter<ILoggingEvent> evaluatorFilter = new EvaluatorFilter<ILoggingEvent>();
@@ -224,8 +291,8 @@ public class DingTalkRobotLogbackAppendBootstrap {
         evaluatorFilter.setEvaluator(eventEvaluator);
         eventEvaluator.setContext(loggerContext);
 
-        evaluatorFilter.setOnMatch(FilterReply.ACCEPT);
-        evaluatorFilter.setOnMismatch(FilterReply.DENY);
+        evaluatorFilter.setOnMatch(onMatch);
+        evaluatorFilter.setOnMismatch(onMismatch);
         eventEvaluator.start();
         evaluatorFilter.start();
         return evaluatorFilter;

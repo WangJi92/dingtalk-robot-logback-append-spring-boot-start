@@ -68,7 +68,17 @@ public class DingTalkRobotAppendProperties {
          * {@link DingTalkRobotLogbackAppendBootstrap#buildJaninoEvaluatorFilter()}
          * 这里使用的表达式 kewWordExpression : return formattedMessage.contains("keyword1") || formattedMessage.contains("keyword2");
          */
-        private List<String> logKeyWords;
+        private List<String> includeLogMessageKeyWords;
+
+        /**
+         * 排除掉message 里面的关键字 不打印
+         */
+        private List<String> excludeLogMessageKeyWords;
+
+        /**
+         * 哪些日志名称不打印 包含关键字
+         */
+        private List<String> excludeLogName;
 
         /**
          * 消息中过滤 自己定义表达式 和 logKeyWords 冲突 {@literal http://logback.qos.ch/manual/filters.html#EvaluatorFilter}
@@ -80,6 +90,11 @@ public class DingTalkRobotAppendProperties {
          * 添加到哪些 logger name
          */
         private List<String> appendLoggerNames = Lists.newArrayList("root");
+
+        /**
+         * mdc 里面哪些需要打印
+         */
+        private List<String> mdcList = Lists.newArrayList();
 
         /**
          * blockingQueue长度决定了队列能放多少信息，在默认的配置下，如果blockingQueue放满了，后续想要输出日志的线程会被阻塞，
