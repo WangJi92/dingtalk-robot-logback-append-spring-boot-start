@@ -4,7 +4,6 @@ import ch.qos.logback.classic.LoggerContext;
 import com.github.wangji92.dingtalkrobot.DingTalkRobotAppendProperties;
 import com.github.wangji92.dingtalkrobot.logback.append.DingTalkRobotAppend;
 import com.github.wangji92.dingtalkrobot.logback.layout.DingTalkRobotLayout;
-import com.github.wangji92.dingtalkrobot.logback.pattern.CenterBracketsTemplateConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
@@ -51,6 +50,7 @@ public class DingTalkRobotAppendBuilder {
         dingTalkRobotAppend.setRobotTitle(title);
         dingTalkRobotAppend.setContext(loggerContext);
         DingTalkRobotLayout layout = this.buildDingTalkRobotLayout(loggerContext, robot);
+        layout.setMdcList(dingTalkRobotAppendProperties.getLogConfig().getMdcList());
         layout.start();
         dingTalkRobotAppend.setLayout(layout);
         dingTalkRobotAppend.start();

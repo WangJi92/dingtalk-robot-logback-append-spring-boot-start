@@ -51,8 +51,8 @@ spring.dingtalk.logback.append.log-config.log-level=ERROR
 
 ## 关键字过滤 两种方式 1、关键字 2、表达式 http://logback.qos.ch/manual/filters.html#EvaluatorFilter
 ## 可以都不配置 只处理loglevel 的过滤
-#spring.dingtalk.logback.append.log-config.log-key-words[0]=dingding
-#spring.dingtalk.logback.append.log-config.log-key-words[1]=wangji
+#spring.dingtalk.logback.append.log-config.include-log-message-key-words[0]=dingding
+#spring.dingtalk.logback.append.log-config.include-log-message-key-words[1]=wangji
 spring.dingtalk.logback.append.log-config.kew-word-expression=return  formattedMessage.contains("dingding") ||  formattedMessage.contains("wangji");
 
 ## 异步队列的配置 【需要注意队列的长度 可能丢日志】
